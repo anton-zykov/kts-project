@@ -1,0 +1,13 @@
+@import '@styles/styles.module.scss';
+
+.Loaders {
+  @include Loader(1);
+}
+
+.Loaderm {
+  @include Loader(2);
+}
+
+.Loaderl {
+  @include Loader(3);
+}

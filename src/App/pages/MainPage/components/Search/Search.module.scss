@@ -1,0 +1,14 @@
+@import '@styles/styles.module.scss';
+
+.main__search {
+  margin: 8px;
+  display: flex;
+  gap: 17px;
+}
+
+.main__searchButton {
+  width: 36px;
+  height: 36px;
+  @include svgBackground('../../../../../../public/search.svg');
+  border-radius: 7px;
+}

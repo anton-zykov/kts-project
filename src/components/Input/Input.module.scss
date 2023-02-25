@@ -1,0 +1,27 @@
+.base_input {
+  position: relative;
+  width: 100%;
+  border: transparent;
+  border-radius: 7px;
+  padding: 10px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #000000;
+  //opacity: 0.5;
+}
+
+.input {
+  @extend .base_input;
+  background: linear-gradient(90deg, #FFF0F0 0%, #FFDFDF 100%);
+}
+
+.input:focus {
+  background: linear-gradient(90deg, #FFBCBC 0%, #FFA1A1 100%);
+  outline: none;
+}
+
+.input__disabled {
+  @extend .input;
+  background: linear-gradient(90deg, #F2F2F2 0%, #D9D9D9 100%);
+}

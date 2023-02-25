@@ -1,0 +1,23 @@
+@import '@styles/styles.module.scss';
+
+.recipe__imageContainer {
+  position: relative;
+}
+
+.recipe__backButton {
+  position: absolute;
+  top: 38px;
+  left: 19px;
+  width: 45px;
+  height: 45px;
+  border-radius: 7px;
+  opacity: 0.1;
+  @include svgBackground('../../../../../../public/back.svg');
+}
+
+.recipe__image {
+  position: relative;
+  width: 100%;
+  object-fit: cover;
+  margin: 0;
+}

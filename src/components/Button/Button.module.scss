@@ -1,0 +1,38 @@
+.base__button {
+  display: flex;
+  gap: 9px;
+  position: relative;
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border: red;
+  border-radius: 7px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 25px;
+  color: #FFFFFF;
+}
+
+.button {
+  @extend .base__button;
+  background: #FF0000;
+}
+
+.button__disabled {
+  @extend .base__button;
+  background: #D9D9D9;
+}
+
+.button:hover {
+  opacity: 50%;
+}
+
+.button__disabled:hover {
+  opacity: 100%;
+}
+
+.Loaders:first-child {
+  border-color: #FFFFFF;
+  border-right: 3px solid #D9D9D9;
+}

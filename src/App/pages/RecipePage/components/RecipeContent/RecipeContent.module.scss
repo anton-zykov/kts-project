@@ -1,0 +1,52 @@
+.recipe__contentContainer {
+  background-color: #FFFFFF;
+  position: relative;
+  padding: 18px 16px 17px 36px;
+  z-index: 100;
+  top: -100px;
+  border-radius: 7px;
+}
+
+.recipe__scroll {
+  margin: 0 auto 45px;
+  background: #FFCBCB;
+  border-radius: 12px;
+  height: 5px;
+  width: 60px;
+}
+
+.recipe__title {
+  font-weight: 500;
+  font-size: 27px;
+  margin: 16px 0;
+}
+
+.recipe__timeRating {
+  display: flex;
+  justify-content: flex-start;
+  gap: 30px;
+  margin-bottom: 25px;
+}
+
+.recipe__time, .recipe__rating {
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
+  align-items: center;
+}
+
+.recipe__timeRatingText {
+  font-weight: 400;
+  font-size: 14px;
+  color: #3B3B3B;
+  opacity: 0.3;
+}
+
+.recipe__ingredients ul, .recipe__instructions ol {
+  padding-left: 1.8em;
+}
+
+.recipe__instructions, .recipe__ingredients, .recipe__summary {
+  font-weight: 500;
+  font-size: 12px;
+}

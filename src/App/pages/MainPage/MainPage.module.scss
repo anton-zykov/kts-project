@@ -1,0 +1,12 @@
+@import '@styles/styles.module.scss';
+
+.main {
+  @include svgBackground('../../../../public/main-background.svg');
+  background-position: top;
+  background-size: contain;
+  background-color: #FFFFFF;
+  position: relative;
+  width: 375px;
+  margin: auto;
+  padding: 14px 24px;
+}
