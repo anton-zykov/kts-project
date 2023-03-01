@@ -21,8 +21,6 @@ const MainPage: React.FC = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => fetchRecipes(), []);
-
   const fetchRecipes = () => {
     getTenRecipes(recipes.length)
       .then((data) => {
@@ -32,6 +30,8 @@ const MainPage: React.FC = () => {
         alert(e.message);
       });
   };
+
+  useEffect(fetchRecipes, []);
 
   return (
     <div className={styles.page}>

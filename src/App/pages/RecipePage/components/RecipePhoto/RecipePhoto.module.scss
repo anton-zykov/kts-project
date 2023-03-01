@@ -11,8 +11,8 @@
   width: 45px;
   height: 45px;
   border-radius: 7px;
-  opacity: 0.1;
-  @include svgBackground('../../../../../../public/back.svg');
+  opacity: 0.2;
+  @include svgBackground('~/public/back.svg');
 }
 
 .recipe__image {

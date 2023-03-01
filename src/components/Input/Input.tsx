@@ -24,7 +24,7 @@ export const Input: React.FC<InputProps> = ({
       type="text"
       className={`${styles.input} ${className} 
         ${disabled ? `${styles.input__disabled}` : ''}`}
-      onChange={(event) => onChange(event.target.value as string)}
+      onChange={(event) => onChange(event.target.value)}
       value={value}
       disabled={disabled}
       {...props}

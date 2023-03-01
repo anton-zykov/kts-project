@@ -19,13 +19,13 @@ const RecipeContent: React.FC<RecipeContentProps> = ({ recipe }) => {
       <div className={styles.recipe__title}>{recipe.title}</div>
       <div className={styles.recipe__timeRating}>
         <div className={styles.recipe__time}>
-          <img src="/time.png" alt="cooking time" />
+          <img src="/time.svg" alt="cooking time" />
           <span className={styles.recipe__timeRatingText}>
             {recipe.readyInMinutes} minutes
           </span>
         </div>
         <div className={styles.recipe__rating}>
-          <img src="/like.png" alt="likes" />
+          <img src="/like.svg" alt="likes" />
           <span className={styles.recipe__timeRatingText}>
             {recipe.aggregateLikes} Likes
           </span>

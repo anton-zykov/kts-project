@@ -7,7 +7,7 @@ import { recipe } from '../../MainPage';
 
 export type CardsProps = {
   recipes: recipe[];
-  fetchRecipes: () => void;
+  fetchRecipes: VoidFunction;
   click: (id: number) => void;
 };
 
@@ -16,12 +16,15 @@ export type nutrient = {
 };
 
 const Cards: React.FC<CardsProps> = ({ recipes, fetchRecipes, click }) => {
+  // Создается строка ингредиентов, разделённых плюсами.
   const getIngredients = (recipe: recipe): string => {
     return recipe.missedIngredients
-      .reduce((ingredients: string, current: { name: string }) => {
-        return ingredients.concat(`${current.name} + `);
-      }, '')
-      .slice(0, -3);
+      .reduce(
+        (ingredients: string, current: { name: string }) =>
+          ingredients.concat(`${current.name} + `),
+        ''
+      )
+      .slice(0, -3); // Обрезается последний пробел и плюс.
   };
 
   const getCalories = (recipe: recipe): number => {
@@ -35,7 +38,7 @@ const Cards: React.FC<CardsProps> = ({ recipes, fetchRecipes, click }) => {
   return (
     <InfiniteScroll
       dataLength={recipes.length}
-      next={() => fetchRecipes()}
+      next={fetchRecipes}
       hasMore={true}
       loader={<WithLoader loading={true}>.</WithLoader>}
     >
@@ -46,7 +49,7 @@ const Cards: React.FC<CardsProps> = ({ recipes, fetchRecipes, click }) => {
             image={recipe.image}
             title={recipe.title}
             subtitle={getIngredients(recipe)}
-            content={getCalories(recipe)}
+            kcal={getCalories(recipe)}
             onClick={() => click(recipe.id)}
           />
         ))}

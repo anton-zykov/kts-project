@@ -9,8 +9,8 @@ export type CardProps = {
   title: React.ReactNode;
   /** Подзаголовок карточки */
   subtitle: React.ReactNode;
-  /** Содержимое карточки (футер/боковая часть), может быть пустым */
-  content?: React.ReactNode;
+  /** Количество калорий */
+  kcal?: React.ReactNode;
   /** Клик на карточку */
   onClick?: React.MouseEventHandler;
 };
@@ -19,7 +19,7 @@ export const Card: React.FC<CardProps> = ({
   image,
   title,
   subtitle,
-  content,
+  kcal,
   onClick,
 }) => {
   return (
@@ -28,7 +28,7 @@ export const Card: React.FC<CardProps> = ({
       <div className={styles.card__title}>{title}</div>
       <div className={styles.card__subtitle}>{subtitle}</div>
       <div className={styles.card__caloriesMore}>
-        <div className={styles.card__calories}>{content} kcal</div>
+        <div className={styles.card__calories}>{kcal} kcal</div>
         <div className={styles.card__more} />
       </div>
     </div>

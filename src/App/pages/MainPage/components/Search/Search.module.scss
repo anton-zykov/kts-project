@@ -9,6 +9,6 @@
 .main__searchButton {
   width: 36px;
   height: 36px;
-  @include svgBackground('../../../../../../public/search.svg');
+  @include svgBackground('~/public/search.svg');
   border-radius: 7px;
 }

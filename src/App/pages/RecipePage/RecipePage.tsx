@@ -19,14 +19,18 @@ export type recipe = {
 };
 
 const RecipePage: React.FC = () => {
-  const id: number = Number(useParams().id);
+  const id = Number(useParams().id);
   const [recipe, setRecipe] = useState<null | recipe>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getOneRecipe(id).then((data) => {
-      setRecipe(data);
-    });
+    getOneRecipe(id)
+      .then((data) => {
+        setRecipe(data);
+      })
+      .catch((e) => {
+        alert(e.message);
+      });
   }, [id]);
 
   if (recipe) {

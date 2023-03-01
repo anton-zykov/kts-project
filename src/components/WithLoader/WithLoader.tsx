@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './WithLoader.module.scss';
-import { Loader, LoaderSize } from '../Loader/Loader';
+import { Loader, LoaderSize } from '../Loader';
 
 export type WithLoaderProps = React.PropsWithChildren<{
   loading: boolean;

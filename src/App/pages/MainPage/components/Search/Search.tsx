@@ -6,7 +6,7 @@ import styles from './Search.module.scss';
 const Search: React.FC = () => {
   return (
     <div className={styles.main__search}>
-      <Input value={''} placeholder={'Search'} onChange={() => {}} />
+      <Input value="" placeholder="Search" onChange={() => {}} />
       <Button className={styles.main__searchButton} />
     </div>
   );

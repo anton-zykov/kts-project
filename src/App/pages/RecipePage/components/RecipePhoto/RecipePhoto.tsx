@@ -5,7 +5,7 @@ import { recipe } from '../../RecipePage';
 
 export type RecipePhotoProps = {
   recipe: recipe;
-  click: () => void;
+  click: VoidFunction;
 };
 
 const RecipePhoto: React.FC<RecipePhotoProps> = ({ recipe, click }) => {
@@ -14,9 +14,9 @@ const RecipePhoto: React.FC<RecipePhotoProps> = ({ recipe, click }) => {
       <img
         className={styles.recipe__image}
         src={recipe.image}
-        alt={`${recipe.title}`}
+        alt={`Изображение блюда ${recipe.title}`}
       />
-      <Button className={styles.recipe__backButton} onClick={() => click()} />
+      <Button className={styles.recipe__backButton} onClick={click} />
     </div>
   );
 };
