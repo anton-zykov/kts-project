@@ -1,7 +1,7 @@
+import { recipe } from '@store/models';
 import parse from 'html-react-parser';
 
 import styles from './RecipeContent.module.scss';
-import { recipe } from '../../RecipePage';
 
 export type RecipeContentProps = {
   recipe: recipe;

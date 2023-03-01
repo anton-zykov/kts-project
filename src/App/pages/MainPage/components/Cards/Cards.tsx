@@ -1,9 +1,9 @@
 import { Card } from '@components/Card';
 import { WithLoader } from '@components/WithLoader';
+import { recipe } from '@store/models';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import styles from './Cards.module.scss';
-import { recipe } from '../../MainPage';
 
 export type CardsProps = {
   recipes: recipe[];
@@ -18,7 +18,7 @@ export type nutrient = {
 const Cards: React.FC<CardsProps> = ({ recipes, fetchRecipes, click }) => {
   // Создается строка ингредиентов, разделённых плюсами.
   const getIngredients = (recipe: recipe): string => {
-    return recipe.missedIngredients
+    return recipe.extendedIngredients
       .reduce(
         (ingredients: string, current: { name: string }) =>
           ingredients.concat(`${current.name} + `),

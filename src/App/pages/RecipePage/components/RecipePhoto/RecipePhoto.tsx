@@ -1,7 +1,7 @@
 import { Button } from '@components/Button';
+import { recipe } from '@store/models';
 
 import styles from './RecipePhoto.module.scss';
-import { recipe } from '../../RecipePage';
 
 export type RecipePhotoProps = {
   recipe: recipe;

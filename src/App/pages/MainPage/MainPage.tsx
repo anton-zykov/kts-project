@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { getTenRecipes } from '@services/recipes';
+import RootStore from '@store/RootStore';
+import { observer, useLocalObservable } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 
 import Cards from './components/Cards';
@@ -8,23 +10,15 @@ import CategoriesFilter from './components/CategoriesFilter';
 import Search from './components/Search';
 import styles from './MainPage.module.scss';
 
-export type recipe = {
-  title: string;
-  id: number;
-  image: string;
-  missedIngredients: { name: string }[];
-  nutrition: any;
-};
-
 const MainPage: React.FC = () => {
-  const [recipes, setRecipes] = useState<recipe[]>([]);
-
+  const store = useLocalObservable(() => new RootStore());
+  const recipes = store.recipes;
   const navigate = useNavigate();
 
   const fetchRecipes = () => {
     getTenRecipes(recipes.length)
       .then((data) => {
-        setRecipes(recipes.concat(data.results));
+        store.setRecipes(recipes.concat(data.results));
       })
       .catch((e) => {
         alert(e.message);
@@ -48,4 +42,4 @@ const MainPage: React.FC = () => {
   );
 };
 
-export default MainPage;
+export default observer(MainPage);
