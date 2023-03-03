@@ -4,7 +4,7 @@ export type recipe = {
   image: string;
   extendedIngredients: { name: string; original: string }[];
   nutrition: any;
-  instructions: string;
+  analyzedInstructions: any;
   readyInMinutes: number;
   aggregateLikes: number;
   summary: string;

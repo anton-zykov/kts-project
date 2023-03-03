@@ -1,24 +1,12 @@
-import { recipe } from '@store/models';
-import { makeObservable, observable, computed, action } from 'mobx';
-
-type PrivateFields = '_recipes';
+import AllRecipesStore from './AllRecipesStore';
+import QueryParamsStore from './QueryParamsStore';
 
 export default class RootStore {
-  private _recipes: recipe[] = [];
+  readonly query;
+  readonly recipes;
 
   constructor() {
-    makeObservable<RootStore, PrivateFields>(this, {
-      _recipes: observable.ref,
-      recipes: computed,
-      setRecipes: action,
-    });
-  }
-
-  get recipes(): recipe[] {
-    return this._recipes;
-  }
-
-  setRecipes(updatedRecipes: recipe[]) {
-    this._recipes = updatedRecipes;
+    this.query = new QueryParamsStore(this);
+    this.recipes = new AllRecipesStore(this);
   }
 }

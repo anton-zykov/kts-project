@@ -13,6 +13,21 @@ const RecipeContent: React.FC<RecipeContentProps> = ({ recipe }) => {
     return summary.replaceAll(regex, '/recipe/');
   };
 
+  /* Получение списка инструкций из сложного объекта, присланного api.
+  Пришлось изменить подход на более некрасивый по сравнению с дз3,
+  чтобы не делать новые запросы для рецептов, которые были на главной странице.
+  У них не получается запросить поле instructions, а можно только такое.
+  Зато теперь можно пользоваться глобальным стором и в большинстве случаев
+  не пользоваться сетью. */
+  const getInstructions = (): string[] => {
+    return recipe.analyzedInstructions[0].steps.reduce(
+      (result: string[], current: { step: string }) => {
+        return result.concat(current.step);
+      },
+      []
+    );
+  };
+
   return (
     <div className={styles.recipe__contentContainer}>
       <div className={styles.recipe__scroll} />
@@ -42,7 +57,11 @@ const RecipeContent: React.FC<RecipeContentProps> = ({ recipe }) => {
         </ul>
       </div>
       <div className={styles.recipe__instructions}>
-        {parse(recipe.instructions)}
+        <ol>
+          {getInstructions().map((instr, index) => (
+            <li key={index}>{instr}</li>
+          ))}
+        </ol>
       </div>
     </div>
   );

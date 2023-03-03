@@ -1,8 +1,5 @@
-import { useEffect } from 'react';
-
-import { getTenRecipes } from '@services/recipes';
 import RootStore from '@store/RootStore';
-import { observer, useLocalObservable } from 'mobx-react-lite';
+import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 
 import Cards from './components/Cards';
@@ -10,22 +7,25 @@ import CategoriesFilter from './components/CategoriesFilter';
 import Search from './components/Search';
 import styles from './MainPage.module.scss';
 
+let firstRender: boolean = true;
+
 const MainPage: React.FC = () => {
-  const store = useLocalObservable(() => new RootStore());
+  const store = RootStore.recipes;
   const recipes = store.recipes;
   const navigate = useNavigate();
 
-  const fetchRecipes = () => {
-    getTenRecipes(recipes.length)
-      .then((data) => {
-        store.setRecipes(recipes.concat(data.results));
-      })
-      .catch((e) => {
-        alert(e.message);
-      });
-  };
+  /* Через useEffect в devmode будет две загрузки,
+  поэтому раз мы всё равно не делаем build, то думаю,
+  можно таким костылём воспользоваться, чтобы не жечь
+  токен, который и так мало запросов даёт. */
+  if (recipes.length === 0 && firstRender) {
+    firstRender = false;
+    RootStore.recipes.fetchRecipes();
+  }
 
-  useEffect(fetchRecipes, []);
+  const handleScroll = () => {
+    RootStore.recipes.fetchRecipes();
+  };
 
   return (
     <div className={styles.page}>
@@ -34,7 +34,7 @@ const MainPage: React.FC = () => {
         <CategoriesFilter />
         <Cards
           recipes={recipes}
-          fetchRecipes={fetchRecipes}
+          handleScroll={handleScroll}
           click={(id: number) => navigate(`/recipe/${id}`)}
         />
       </div>

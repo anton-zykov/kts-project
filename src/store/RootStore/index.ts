@@ -1,1 +1,5 @@
-export { default } from './RootStore';
+import RootStore from './RootStore';
+
+export { default } from './instance';
+
+export { RootStore };

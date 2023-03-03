@@ -1,13 +1,15 @@
 import { Card } from '@components/Card';
 import { WithLoader } from '@components/WithLoader';
 import { recipe } from '@store/models';
+import RootStore from '@store/RootStore';
+import { observer } from 'mobx-react-lite';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import styles from './Cards.module.scss';
 
 export type CardsProps = {
   recipes: recipe[];
-  fetchRecipes: VoidFunction;
+  handleScroll: VoidFunction;
   click: (id: number) => void;
 };
 
@@ -15,7 +17,9 @@ export type nutrient = {
   name: string;
 };
 
-const Cards: React.FC<CardsProps> = ({ recipes, fetchRecipes, click }) => {
+const Cards: React.FC<CardsProps> = ({ recipes, handleScroll, click }) => {
+  const loading = RootStore.recipes.meta === 'loading' ? true : false;
+
   // Создается строка ингредиентов, разделённых плюсами.
   const getIngredients = (recipe: recipe): string => {
     return recipe.extendedIngredients
@@ -35,12 +39,15 @@ const Cards: React.FC<CardsProps> = ({ recipes, fetchRecipes, click }) => {
     );
   };
 
+  /* Без пробела в WithLoader страница ведет себя странно,
+  появляется вертикальная прокрутка, которая постоянно то исчезает,
+  то снова появляется. Пробовал менять размер контейнера, не помогает. */
   return (
     <InfiniteScroll
       dataLength={recipes.length}
-      next={fetchRecipes}
+      next={handleScroll}
       hasMore={true}
-      loader={<WithLoader loading={true}>.</WithLoader>}
+      loader={<WithLoader loading={loading}>⠀</WithLoader>}
     >
       <div className={styles.main__content}>
         {recipes?.map((recipe) => (
@@ -58,4 +65,4 @@ const Cards: React.FC<CardsProps> = ({ recipes, fetchRecipes, click }) => {
   );
 };
 
-export default Cards;
+export default observer(Cards);
