@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import { useQueryParamsStoreInit } from '@store/RootStore/hooks/useQueryParamsStoreInit';
 import { Routes, Route } from 'react-router-dom';
 

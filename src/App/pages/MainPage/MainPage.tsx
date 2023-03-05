@@ -1,4 +1,5 @@
 import RootStore from '@store/RootStore';
+import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,8 +11,7 @@ import styles from './MainPage.module.scss';
 let firstRender: boolean = true;
 
 const MainPage: React.FC = () => {
-  const store = RootStore.recipes;
-  const recipes = store.recipes;
+  const recipes = RootStore.recipes.recipes;
   const navigate = useNavigate();
 
   /* Через useEffect в devmode будет две загрузки,
@@ -23,8 +23,11 @@ const MainPage: React.FC = () => {
     RootStore.recipes.fetchRecipes();
   }
 
-  const handleScroll = () => {
-    RootStore.recipes.fetchRecipes();
+  const handleScroll = async () => {
+    await RootStore.recipes.fetchRecipes();
+    const url = new URL(window.location.href);
+    url.searchParams.set('count', String(RootStore.recipes.recipes.length));
+    window.history.pushState(null, '', url.toString());
   };
 
   return (
@@ -35,7 +38,17 @@ const MainPage: React.FC = () => {
         <Cards
           recipes={recipes}
           handleScroll={handleScroll}
-          click={(id: number) => navigate(`/recipe/${id}`)}
+          click={(id: number) =>
+            runInAction(() => {
+              navigate(
+                /* Оключил линтер, потому что при разбиении на 2 строки
+                он вставляет пробелы в строчку, url и куча всего ломается.
+                Уже не в первый раз с таким сталкиваюсь, как длинные строки писать?*/
+                // eslint-disable-next-line prettier/prettier
+                `/recipe/${id}/?search=${RootStore.query.getParam('search')}&count=${recipes.length}`
+              );
+            })
+          }
         />
       </div>
     </div>

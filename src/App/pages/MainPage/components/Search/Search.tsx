@@ -4,17 +4,20 @@ import { FormEvent } from 'react';
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 import RootStore from '@store/RootStore';
+import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './Search.module.scss';
 
 const Search: React.FC = () => {
-  const [value, setValue] = useState<string>('');
+  const [value, setValue] = useState<string>(
+    String(RootStore.query.getParam('search'))
+  );
   const navigate = useNavigate();
 
   const handleSearch = (event: FormEvent): void => {
     event.preventDefault();
-    navigate(`?search=${value}`);
+    navigate(`?search=${value}&count=6`);
   };
 
   return (
@@ -25,4 +28,4 @@ const Search: React.FC = () => {
   );
 };
 
-export default Search;
+export default observer(Search);

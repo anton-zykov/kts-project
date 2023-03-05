@@ -19,6 +19,7 @@ export type nutrient = {
 
 const Cards: React.FC<CardsProps> = ({ recipes, handleScroll, click }) => {
   const loading = RootStore.recipes.meta === 'loading' ? true : false;
+  const areThereMoreRecipes = RootStore.recipes.maxRecipes > recipes.length;
 
   // Создается строка ингредиентов, разделённых плюсами.
   const getIngredients = (recipe: recipe): string => {
@@ -46,7 +47,7 @@ const Cards: React.FC<CardsProps> = ({ recipes, handleScroll, click }) => {
     <InfiniteScroll
       dataLength={recipes.length}
       next={handleScroll}
-      hasMore={true}
+      hasMore={areThereMoreRecipes}
       loader={<WithLoader loading={loading}>⠀</WithLoader>}
     >
       <div className={styles.main__content}>
