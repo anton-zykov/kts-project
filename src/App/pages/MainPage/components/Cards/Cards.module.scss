@@ -1,7 +1,11 @@
-.main__content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  column-gap: 17px;
-  row-gap: 35px;
+@use 'styles/mixins.module.scss' as mxn;
+
+.main{
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    column-gap: 17px;
+    row-gap: 35px;
+  }
 }

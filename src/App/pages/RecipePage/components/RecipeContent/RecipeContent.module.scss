@@ -1,52 +1,57 @@
-.recipe__contentContainer {
-  background-color: #FFFFFF;
-  position: relative;
-  padding: 18px 16px 17px 36px;
-  z-index: 100;
-  top: -100px;
-  border-radius: 7px;
+@use 'styles/variables.module.scss' as var;
+@use 'styles/mixins.module.scss' as mxn;
+
+.recipe {
+  &__contentContainer {
+    background-color: var.$color-white;
+    position: relative;
+    padding: 18px 16px 17px 36px;
+    z-index: 100;
+    top: -100px;
+    border-radius: var.$global-border-radius;
+  }
+
+  &__scroll {
+    margin: 0 auto 45px;
+    background: var.$color-pink;
+    border-radius: 12px;
+    height: 5px;
+    width: 60px;
+  }
+  
+  &__title {
+    font-size: 27px;
+    margin: 16px 0;
+  }
+  
+  &__timeRating {
+    display: flex;
+    justify-content: flex-start;
+    gap: 30px;
+    margin-bottom: 25px;
+  }
+  
+  &__time, &__rating {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    align-items: center;
+  }
+  
+  &__timeRatingText {
+    @include mxn.font-medium;
+    color: #3B3B3B;
+    opacity: 0.3;
+  }
+  
+  &__ingredients ul, &__instructions ol {
+    padding-left: 1.8em;
+  }
+  
+  &__instructions, &__ingredients, &__summary {
+    font-family: 'Avenir-Book';
+    @include mxn.font-medium;
+  }
 }
 
-.recipe__scroll {
-  margin: 0 auto 45px;
-  background: #FFCBCB;
-  border-radius: 12px;
-  height: 5px;
-  width: 60px;
-}
 
-.recipe__title {
-  font-weight: 500;
-  font-size: 27px;
-  margin: 16px 0;
-}
-
-.recipe__timeRating {
-  display: flex;
-  justify-content: flex-start;
-  gap: 30px;
-  margin-bottom: 25px;
-}
-
-.recipe__time, .recipe__rating {
-  display: flex;
-  justify-content: flex-start;
-  gap: 15px;
-  align-items: center;
-}
-
-.recipe__timeRatingText {
-  font-weight: 400;
-  font-size: 14px;
-  color: #3B3B3B;
-  opacity: 0.3;
-}
-
-.recipe__ingredients ul, .recipe__instructions ol {
-  padding-left: 1.8em;
-}
-
-.recipe__instructions, .recipe__ingredients, .recipe__summary {
-  font-weight: 500;
-  font-size: 12px;
-}

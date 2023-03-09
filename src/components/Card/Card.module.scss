@@ -1,3 +1,6 @@
+@use 'styles/variables.module.scss' as var;
+@use 'styles/mixins.module.scss' as mxn;
+
 .card {
   display: flex;
   flex-direction: column;
@@ -5,54 +8,46 @@
   padding: 8px 12px;
   width: 155px;
   position: relative;
-  background: #FFFFFF;
+  background: var.$color-content-background;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.12);
   border-radius: 10px;
-}
 
-.card:hover {
-  opacity: 0.8;
-  background: #f3f3f3;
-}
+  &:hover {
+    opacity: 0.8;
+    background: var.$color-light-grey;
+  }
 
-.card__image {
-  margin: 3px 22px;
-}
+  &__image {
+    margin: 3px 22px;
+  }
 
-.card__title {
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 25px;
-  color: #0D0D0D;
-}
+  &__title {
+    @include mxn.font-medium;
+    color: var.$color-black;
+  }
 
-.card__subtitle {
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 16px;
-  color: #3B3B3B;
-  margin-bottom: 7px;
-}
+  &__subtitle {
+    @include mxn.font-tiny;
+    color: var.$color-dark-grey;
+    margin-bottom: 7px;
+  }
 
-.card__caloriesMore {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: auto;
-}
+  &__caloriesMoreBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+  }
 
-.card__calories {
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 18px;
-  color: #FF0000;
-}
+  &__calories {
+    font-weight: 700;
+    @include mxn.font-small;
+    color: var.$color-red;
+  }
 
-.card__more {
-  width: 24px;
-  height: 24px;
-  background-image: url(../../../public/more.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  border-radius: 24px;
+  &__more {
+    @include mxn.square(22px);
+    border-radius: 24px;
+    @include mxn.svgBackground('~/public/more.svg');
+  }
 }

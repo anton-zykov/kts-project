@@ -1,0 +1,51 @@
+@use 'styles/variables.module.scss' as var;
+
+@mixin content-positioning-on-page {
+  position: relative;
+  width: var.$content-width;
+  margin: auto;
+}
+
+@mixin font-tiny {
+  font-size: var.$font-tiny;
+}
+
+@mixin font-small {
+  font-size: var.$font-small;
+}
+
+@mixin font-medium {
+  font-size: var.$font-medium;
+}
+
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin rounded-square($size) {
+  @include square($size);
+  border-radius: var.$global-border-radius;
+}
+
+@mixin svgBackground($svgurl) {
+  background-image: url($svgurl);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@mixin loader($size) {
+  @include square(16px * $size);
+  border: var.$loader-thickness * ($size + 1) solid var.$color-red;
+  border-right: var.$loader-thickness * ($size + 1) solid transparent;
+  border-radius: 20px * $size;
+  animation: spin 1000ms infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  } to {
+    transform: rotate(360deg);
+  }
+}

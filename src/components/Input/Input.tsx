@@ -1,14 +1,14 @@
 import React from 'react';
 
+import classNames from 'classnames';
+
 import styles from './Input.module.scss';
 
 export type InputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   'onChange' | 'value'
 > & {
-  /** Значение поля */
   value: string;
-  /** Callback, вызываемый при вводе данных в поле */
   onChange: (value: string) => void;
 };
 
@@ -16,17 +16,16 @@ export const Input: React.FC<InputProps> = ({
   value,
   onChange,
   className,
-  disabled,
   ...props
 }) => {
+  const inputClass = classNames(styles.input, className);
+
   return (
     <input
       type="text"
-      className={`${styles.input} ${className} 
-        ${disabled ? `${styles.input__disabled}` : ''}`}
+      className={inputClass}
       onChange={(event) => onChange(event.target.value)}
       value={value}
-      disabled={disabled}
       {...props}
     />
   );

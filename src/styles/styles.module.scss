@@ -1,37 +1,9 @@
+@use 'styles/variables.module.scss' as var;
+@use 'styles/mixins.module.scss' as mxn;
 @import 'styles/Avenir/fonts.module.scss';
 
-.page {
-  font-family: 'Avenir', sans-serif;
-  font-style: normal;
-  background-color: #F5F5F5;
+body {
+  font-family: 'Avenir-Medium', sans-serif;
+  background-color: var.$color-app-background;
 }
 
-@mixin square($size) {
-  width: $size;
-  height: $size;
-}
-
-@mixin Loader($size) {
-  @include square(16px * $size);
-  border: 1.5px * ($size + 1) solid transparent;
-  border-radius: 20px * $size;
-  border-top: 1.5px * ($size + 1) solid #FF0000;
-  border-left: 1.5px * ($size + 1) solid #FF0000;
-  border-bottom: 1.5px * ($size + 1) solid #FF0000;
-  animation: spin 1000ms infinite linear;
-}
-
-@keyframes spin {
-  from {
-      transform:rotate(0deg);
-  }
-  to {
-      transform:rotate(360deg);
-  }
-}
-
-@mixin svgBackground($svgurl) {
-  background-image: url($svgurl);
-  background-repeat: no-repeat;
-  background-position: center;
-}

@@ -13,19 +13,19 @@ const isProd = process.env.NODE_ENV === 'production';
 
 const getSettingsForStyles = (withModules = false) => {
   return [
-    MiniCssExtractPlugin.loader,
+    isProd ? MiniCssExtractPlugin.loader : 'style-loader',
     !withModules
       ? 'css-loader'
       : {
-          loader: 'css-loader',
-          options: {
-            modules: {
-              localIdentName: !isProd
-                ? '[path][name]__[local]'
-                : '[hash:base64]',
-            },
+        loader: 'css-loader',
+        options: {
+          modules: {
+            localIdentName: !isProd
+              ? '[path][name]__[local]'
+              : '[hash:base64]',
           },
         },
+      },
     {
       loader: 'postcss-loader',
       options: {
@@ -49,9 +49,10 @@ module.exports = {
       template: path.join(srcPath, 'index.html'),
     }),
     !isProd && new ReactRefreshWebpackPlugin(),
-    new MiniCssExtractPlugin({
-      filename: '[name]-[hash].css',
-    }),
+    isProd &&
+      new MiniCssExtractPlugin({
+        filename: '[name]-[hash].css',
+      }),
     new TsCheckerPlugin(),
   ].filter(Boolean),
   module: {

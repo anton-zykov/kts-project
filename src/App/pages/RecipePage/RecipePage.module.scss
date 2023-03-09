@@ -1,7 +1,5 @@
-@import 'styles/styles.module.scss';
+@use 'styles/mixins.module.scss' as mxn;
 
 .recipe {
-  position: relative;
-  width: 375px;
-  margin: auto;
+  @include mxn.content-positioning-on-page;
 }

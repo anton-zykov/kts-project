@@ -1,3 +1,6 @@
+@use 'styles/variables.module.scss' as var;
+@use 'styles/mixins.module.scss' as mxn;
+
 .multiDropdown {
   display: flex;
   flex-direction: column;
@@ -5,29 +8,21 @@
   width: 100%;
   font-family: 'Avenir', sans-serif;
   font-style: normal;
-}
+  
+  &__header {
+    background: linear-gradient(100deg, #FFF0F0 0%, #FFDFDF 100%);
+    padding: 10px;
+    margin-bottom: 2px;
+    height: 16px;
+    border: transparent;
+    border-radius: var.$global-border-radius;
+    @include mxn.font-tiny;
+    line-height: 16px;
+    color: var.$color-black;
 
-.multiDropdown__header {
-  background: linear-gradient(98.81deg, #FFF0F0 -0.82%, #FFDFDF 101.53%);
-  padding: 10px;
-  margin-bottom: 2px;
-  height: 16px;
-  border: transparent;
-  border-radius: 7px;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 16px;
-  color: #000000;
-
-  &_empty {
-    @extend .multiDropdown__header;
-    background: linear-gradient(98.81deg, #FFF0F0 -0.82%, #FFDFDF 101.53%);
-    opacity: 0.5;
-  }
-
-  &_disabled {
-    @extend .multiDropdown__header;
-    background: linear-gradient(98.81deg, #F2F2F2 -0.82%, #D9D9D9 101.53%);
+    &_empty {
+      opacity: 0.5;
+    }
   }
 }
 
@@ -36,20 +31,13 @@
   padding: 10px;
   height: 16px;
   border: transparent;
-  border-radius: 7px;
-  font-weight: 400;
-  font-size: 12px;
-  color: #000000;
+  border-radius: var.$global-border-radius;
+  @include mxn.font-tiny;
+  color: var.$color-black;
 }
 
 .not-selected {
+  @extend .selected;
   background: #FFF7F7;
   opacity: 0.8;
-  padding: 10px;
-  height: 16px;
-  border: transparent;
-  border-radius: 7px;
-  font-weight: 400;
-  font-size: 12px;
-  color: #000000;
 }

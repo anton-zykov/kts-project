@@ -7,10 +7,10 @@ import styles from './RecipePhoto.module.scss';
 
 export type RecipePhotoProps = {
   recipe: recipe;
-  click: VoidFunction;
+  onClick: React.MouseEventHandler;
 };
 
-const RecipePhoto: React.FC<RecipePhotoProps> = ({ recipe, click }) => {
+const RecipePhoto: React.FC<RecipePhotoProps> = ({ recipe, onClick }) => {
   return (
     <div className={styles.recipe__imageContainer}>
       <img
@@ -18,7 +18,7 @@ const RecipePhoto: React.FC<RecipePhotoProps> = ({ recipe, click }) => {
         src={recipe.image}
         alt={`Изображение блюда ${recipe.title}`}
       />
-      <Button className={styles.recipe__backButton} onClick={click} />
+      <Button className={styles.recipe__backButton} onClick={onClick} />
     </div>
   );
 };

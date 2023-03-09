@@ -1,14 +1,14 @@
-@import 'styles/styles.module.scss';
+@use 'styles/mixins.module.scss' as mxn;
 
-.main__search {
-  margin: 8px;
-  display: flex;
-  gap: 17px;
-}
-
-.main__searchButton {
-  width: 36px;
-  height: 36px;
-  @include svgBackground('~/public/search.svg');
-  border-radius: 7px;
+.main {
+  &__search {
+    margin: 8px;
+    display: flex;
+    gap: 17px;
+  }
+  
+  &__searchButton {
+    @include mxn.rounded-square(36px);
+    @include mxn.svgBackground('~/public/search.svg');
+  } 
 }
