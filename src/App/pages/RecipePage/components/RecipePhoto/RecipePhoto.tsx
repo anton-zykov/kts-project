@@ -1,5 +1,7 @@
-import { Button } from '@components/Button';
-import { recipe } from '@store/models';
+import React from 'react';
+
+import { Button } from 'components/Button';
+import { recipe } from 'store/models';
 
 import styles from './RecipePhoto.module.scss';
 

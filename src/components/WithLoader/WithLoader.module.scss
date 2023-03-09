@@ -3,7 +3,7 @@
 }
 
 .Loaderm_center {
-  composes: Loaderm from '../Loader/Loader.module.scss';
+//  composes: Loaderm from 'components/Loader/Loader.module.scss';
   position: relative;
   left: calc(50% - 20px);
   top: calc(50% - 20px);

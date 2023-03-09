@@ -1,5 +1,7 @@
-import { recipe } from '@store/models';
+import React from 'react';
+
 import parse from 'html-react-parser';
+import { recipe } from 'store/models';
 
 import styles from './RecipeContent.module.scss';
 

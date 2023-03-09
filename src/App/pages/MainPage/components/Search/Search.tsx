@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { FormEvent } from 'react';
+import { useState, FormEvent } from 'react';
+import React from 'react';
 
-import { Button } from '@components/Button';
-import { Input } from '@components/Input';
-import RootStore from '@store/RootStore';
+import { Button } from 'components/Button';
+import { Input } from 'components/Input';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
+import RootStore from 'store/RootStore';
 
 import styles from './Search.module.scss';
 

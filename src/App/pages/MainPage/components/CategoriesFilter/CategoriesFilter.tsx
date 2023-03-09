@@ -1,4 +1,6 @@
-import { MultiDropdown } from '@components/MultiDropdown';
+import React from 'react';
+
+import { MultiDropdown } from 'components/MultiDropdown';
 
 import styles from './CategoriesFilter.module.scss';
 

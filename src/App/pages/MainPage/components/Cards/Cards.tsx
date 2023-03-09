@@ -1,9 +1,11 @@
-import { Card } from '@components/Card';
-import { WithLoader } from '@components/WithLoader';
-import { recipe } from '@store/models';
-import RootStore from '@store/RootStore';
+import React from 'react';
+
+import { Card } from 'components/Card';
+import { WithLoader } from 'components/WithLoader';
 import { observer } from 'mobx-react-lite';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { recipe } from 'store/models';
+import RootStore from 'store/RootStore';
 
 import styles from './Cards.module.scss';
 

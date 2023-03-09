@@ -1,5 +1,3 @@
-import { getSixRecipes } from '@services/recipes';
-import { recipe } from '@store/models';
 import {
   makeObservable,
   observable,
@@ -7,6 +5,8 @@ import {
   action,
   runInAction,
 } from 'mobx';
+import { getSixRecipes } from 'services/recipes';
+import { recipe } from 'store/models';
 
 import { Meta } from './types';
 

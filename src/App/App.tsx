@@ -1,10 +1,12 @@
-import { useQueryParamsStoreInit } from '@store/RootStore/hooks/useQueryParamsStoreInit';
+import React from 'react';
+
 import { Routes, Route } from 'react-router-dom';
+import { useQueryParamsStoreInit } from 'store/RootStore/hooks/useQueryParamsStoreInit';
 
 import MainPage from './pages/MainPage';
 import RecipePage from './pages/RecipePage';
 
-const App = () => {
+const App: React.FC = () => {
   useQueryParamsStoreInit();
   return (
     <Routes>

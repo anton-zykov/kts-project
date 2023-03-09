@@ -1,0 +1,6 @@
+{
+    "editor.formatOnSave": true,
+    "eslint.format.enable": true,
+    "javascript.validate.enable" : false,
+    "eslint.enable": true,
+  }

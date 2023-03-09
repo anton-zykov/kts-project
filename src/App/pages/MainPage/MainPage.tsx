@@ -1,7 +1,9 @@
-import RootStore from '@store/RootStore';
+import React from 'react';
+
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
+import RootStore from 'store/RootStore';
 
 import Cards from './components/Cards';
 import CategoriesFilter from './components/CategoriesFilter';
@@ -41,9 +43,6 @@ const MainPage: React.FC = () => {
           click={(id: number) =>
             runInAction(() => {
               navigate(
-                /* Оключил линтер, потому что при разбиении на 2 строки
-                он вставляет пробелы в строчку, url и куча всего ломается.
-                Уже не в первый раз с таким сталкиваюсь, как длинные строки писать?*/
                 // eslint-disable-next-line prettier/prettier
                 `/recipe/${id}/?search=${RootStore.query.getParam('search')}&count=${recipes.length}`
               );

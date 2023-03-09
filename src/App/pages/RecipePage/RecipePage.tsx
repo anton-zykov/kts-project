@@ -1,12 +1,13 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 
-import { WithLoader } from '@components/WithLoader';
-import { getOneRecipe } from '@services/recipes';
-import { recipe } from '@store/models';
-import RootStore from '@store/RootStore';
+import { WithLoader } from 'components/WithLoader';
 import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { useParams, useNavigate } from 'react-router-dom';
+import { getOneRecipe } from 'services/recipes';
+import { recipe } from 'store/models';
+import RootStore from 'store/RootStore';
 
 import RecipeContent from './components/RecipeContent';
 import RecipePhoto from './components/RecipePhoto';
