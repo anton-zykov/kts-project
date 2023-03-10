@@ -6,8 +6,7 @@
     background-color: var.$color-white;
     position: relative;
     padding: 18px 16px 17px 36px;
-    z-index: 100;
-    top: -100px;
+    top: -30px;
     border-radius: var.$global-border-radius;
   }
 
@@ -45,7 +44,7 @@
   }
   
   &__ingredients ul, &__instructions ol {
-    padding-left: 1.8em;
+    padding-left: 0.8em;
   }
   
   &__instructions, &__ingredients, &__summary {

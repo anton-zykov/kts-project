@@ -8,39 +8,17 @@ import { recipe } from 'store/models';
 import RootStore from 'store/RootStore';
 
 import styles from './Cards.module.scss';
+import { getCalories, getIngredients } from './utils';
 
 export type CardsProps = {
   recipes: recipe[];
   handleScroll: VoidFunction;
-  click: (id: number) => void;
+  onClick: (id: number) => void;
 };
 
-export type nutrient = {
-  name: string;
-};
-
-const Cards: React.FC<CardsProps> = ({ recipes, handleScroll, click }) => {
+const Cards: React.FC<CardsProps> = ({ recipes, handleScroll, onClick }) => {
   const loading = RootStore.recipes.meta === 'loading' ? true : false;
   const areThereMoreRecipes = RootStore.recipes.maxRecipes > recipes.length;
-
-  // Создается строка ингредиентов, разделённых плюсами.
-  const getIngredients = (recipe: recipe): string => {
-    return recipe.extendedIngredients
-      .reduce(
-        (ingredients: string, current: { name: string }) =>
-          ingredients.concat(`${current.name} + `),
-        ''
-      )
-      .slice(0, -3); // Обрезается последний пробел и плюс.
-  };
-
-  const getCalories = (recipe: recipe): number => {
-    return Math.round(
-      recipe.nutrition.nutrients.find(
-        (nutrient: nutrient) => nutrient.name === 'Calories'
-      ).amount
-    );
-  };
 
   /* Без пробела в WithLoader страница ведет себя странно,
   появляется вертикальная прокрутка, которая постоянно то исчезает,
@@ -60,7 +38,7 @@ const Cards: React.FC<CardsProps> = ({ recipes, handleScroll, click }) => {
             title={recipe.title}
             subtitle={getIngredients(recipe)}
             kcal={getCalories(recipe)}
-            onClick={() => click(recipe.id)}
+            onClick={() => onClick(recipe.id)}
           />
         ))}
       </div>

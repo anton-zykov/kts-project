@@ -11,16 +11,14 @@ export type ButtonProps = React.PropsWithChildren<{
 }> &
   React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const Button: React.FC<ButtonProps> = ({
-  children,
-  className,
-  onClick,
-}) => {
-  const btnClass = classNames(styles.button, className);
+export const Button: React.FC<ButtonProps> = React.memo(
+  ({ children, className, onClick }) => {
+    const btnClass = classNames(styles.button, className);
 
-  return (
-    <button className={btnClass} onClick={onClick}>
-      <div>{children}</div>
-    </button>
-  );
-};
+    return (
+      <button className={btnClass} onClick={onClick}>
+        <div>{children}</div>
+      </button>
+    );
+  }
+);

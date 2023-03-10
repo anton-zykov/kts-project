@@ -40,7 +40,7 @@ const MainPage: React.FC = () => {
         <Cards
           recipes={recipes}
           handleScroll={handleScroll}
-          click={(id: number) =>
+          onClick={(id: number) =>
             runInAction(() => {
               navigate(
                 // eslint-disable-next-line prettier/prettier

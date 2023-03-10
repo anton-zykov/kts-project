@@ -4,7 +4,7 @@ import { MultiDropdown } from 'components/MultiDropdown';
 
 import styles from './CategoriesFilter.module.scss';
 
-const CategoriesFilter: React.FC = () => {
+const CategoriesFilter: React.FC = React.memo(() => {
   return (
     <div className={styles.main__categories}>
       <MultiDropdown
@@ -15,6 +15,6 @@ const CategoriesFilter: React.FC = () => {
       />
     </div>
   );
-};
+});
 
 export default CategoriesFilter;

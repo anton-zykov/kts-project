@@ -12,21 +12,18 @@ export type InputProps = Omit<
   onChange: (value: string) => void;
 };
 
-export const Input: React.FC<InputProps> = ({
-  value,
-  onChange,
-  className,
-  ...props
-}) => {
-  const inputClass = classNames(styles.input, className);
+export const Input: React.FC<InputProps> = React.memo(
+  ({ value, onChange, className, ...props }) => {
+    const inputClass = classNames(styles.input, className);
 
-  return (
-    <input
-      type="text"
-      className={inputClass}
-      onChange={(event) => onChange(event.target.value)}
-      value={value}
-      {...props}
-    />
-  );
-};
+    return (
+      <input
+        type="text"
+        className={inputClass}
+        onChange={(event) => onChange(event.target.value)}
+        value={value}
+        {...props}
+      />
+    );
+  }
+);
