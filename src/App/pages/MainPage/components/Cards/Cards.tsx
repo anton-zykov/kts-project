@@ -4,21 +4,21 @@ import { Card } from 'components/Card';
 import { WithLoader } from 'components/WithLoader';
 import { observer } from 'mobx-react-lite';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { recipe } from 'store/models';
-import RootStore from 'store/RootStore';
+import { Recipe } from 'store/models';
+import rootStore from 'store/RootStore';
 
 import styles from './Cards.module.scss';
 import { getCalories, getIngredients } from './utils';
 
 export type CardsProps = {
-  recipes: recipe[];
+  recipes: Recipe[];
   handleScroll: VoidFunction;
   onClick: (id: number) => void;
 };
 
 const Cards: React.FC<CardsProps> = ({ recipes, handleScroll, onClick }) => {
-  const loading = RootStore.recipes.meta === 'loading' ? true : false;
-  const areThereMoreRecipes = RootStore.recipes.maxRecipes > recipes.length;
+  const loading = rootStore.recipes.meta === 'loading' ? true : false;
+  const areThereMoreRecipes = rootStore.recipes.maxRecipes > recipes.length;
 
   /* Без пробела в WithLoader страница ведет себя странно,
   появляется вертикальная прокрутка, которая постоянно то исчезает,

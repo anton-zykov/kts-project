@@ -1,13 +1,13 @@
 import React from 'react';
 
 import parse from 'html-react-parser';
-import { recipe } from 'store/models';
+import { Recipe } from 'store/models';
 
 import styles from './RecipeContent.module.scss';
 import { getInstructions, updateLinks } from './utils';
 
 export type RecipeContentProps = {
-  recipe: recipe;
+  recipe: Recipe;
 };
 
 const RecipeContent: React.FC<RecipeContentProps> = React.memo(({ recipe }) => {

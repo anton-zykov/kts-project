@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { Button } from 'components/Button';
-import { recipe } from 'store/models';
+import { Recipe } from 'store/models';
 
 import styles from './RecipePhoto.module.scss';
 
 export type RecipePhotoProps = {
-  recipe: recipe;
+  recipe: Recipe;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 };
 

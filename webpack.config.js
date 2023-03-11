@@ -41,6 +41,7 @@ const getSettingsForStyles = (withModules = false) => {
 module.exports = {
   entry: path.join(srcPath, 'index.tsx'),
   output: {
+    publicPath: '/',
     path: buildPath,
     filename: 'bundle.js',
   },

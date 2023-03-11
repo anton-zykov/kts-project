@@ -1,4 +1,4 @@
-import { recipe } from 'store/models';
+import { Recipe } from 'store/models';
 
 /* Получение списка инструкций из сложного объекта, присланного api.
   Пришлось изменить подход на более некрасивый по сравнению с дз3,
@@ -6,7 +6,7 @@ import { recipe } from 'store/models';
   У них не получается запросить поле instructions, а можно только такое.
   Зато теперь можно пользоваться глобальным стором и в большинстве случаев
   не пользоваться сетью. */
-const getInstructions = (recipe: recipe): string[] => {
+const getInstructions = (recipe: Recipe): string[] => {
   return recipe.analyzedInstructions[0].steps.reduce(
     (result: string[], current: { step: string }) => {
       return result.concat(current.step);

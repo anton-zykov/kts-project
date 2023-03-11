@@ -6,25 +6,25 @@ import {
   runInAction,
 } from 'mobx';
 import { getSixRecipes } from 'services/recipes';
-import { recipe } from 'store/models';
+import { Recipe } from 'store/models';
 
 import { Meta } from './types';
+import RootStore from '../RootStore';
 
 type PrivateFields = '_recipes' | '_meta' | '_maxRecipes';
 
 export default class AllRecipesStore {
-  private _recipes: recipe[] = [];
+  private _recipes: Recipe[] = [];
   private _meta: Meta = Meta.initial;
-  private _rootStore;
+  private _rootStore: RootStore;
   private _maxRecipes: number = 0;
 
-  constructor(rootStore: any) {
-    // Какая-то сомнительная история с этим типом. Непонятно, как его правильно написать
+  constructor(rootStore: RootStore) {
     this._rootStore = rootStore;
     makeObservable<AllRecipesStore, PrivateFields>(this, {
       _recipes: observable.ref,
-      _meta: observable.ref,
-      _maxRecipes: observable.ref,
+      _meta: observable,
+      _maxRecipes: observable,
       recipes: computed,
       meta: computed,
       maxRecipes: computed,
@@ -33,7 +33,7 @@ export default class AllRecipesStore {
     });
   }
 
-  get recipes(): recipe[] {
+  get recipes(): Recipe[] {
     return this._recipes;
   }
 
@@ -54,7 +54,7 @@ export default class AllRecipesStore {
     try {
       const data = await getSixRecipes(
         this._recipes.length,
-        this._rootStore.query.getParam('count'),
+        Number(this._rootStore.query.getParam('count')),
         this._rootStore.query.getParam('search')
       );
       runInAction(() => {

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
-import RootStore from 'store/RootStore';
+import { Recipe } from 'store/models';
+import rootStore from 'store/RootStore';
 
 import Cards from './components/Cards';
 import CategoriesFilter from './components/CategoriesFilter';
@@ -13,7 +13,7 @@ import styles from './MainPage.module.scss';
 let firstRender: boolean = true;
 
 const MainPage: React.FC = () => {
-  const recipes = RootStore.recipes.recipes;
+  const recipes: Recipe[] = rootStore.recipes.recipes;
   const navigate = useNavigate();
 
   /* Через useEffect в devmode будет две загрузки,
@@ -22,15 +22,19 @@ const MainPage: React.FC = () => {
   токен, который и так мало запросов даёт. */
   if (recipes.length === 0 && firstRender) {
     firstRender = false;
-    RootStore.recipes.fetchRecipes();
+    rootStore.recipes.fetchRecipes();
   }
 
   const handleScroll = async () => {
-    await RootStore.recipes.fetchRecipes();
+    await rootStore.recipes.fetchRecipes();
     const url = new URL(window.location.href);
-    url.searchParams.set('count', String(RootStore.recipes.recipes.length));
+    url.searchParams.set('count', String(rootStore.recipes.recipes.length));
     window.history.pushState(null, '', url.toString());
   };
+
+  const handleClick = React.useCallback((id: number) => {
+    navigate(`/recipe/${id}`);
+  }, []);
 
   return (
     <div className={styles.page}>
@@ -40,14 +44,7 @@ const MainPage: React.FC = () => {
         <Cards
           recipes={recipes}
           handleScroll={handleScroll}
-          onClick={(id: number) =>
-            runInAction(() => {
-              navigate(
-                // eslint-disable-next-line prettier/prettier
-                `/recipe/${id}/?search=${RootStore.query.getParam('search')}&count=${recipes.length}`
-              );
-            })
-          }
+          onClick={handleClick}
         />
       </div>
     </div>
