@@ -5,6 +5,7 @@ import { Button } from 'components/Button';
 import { Input } from 'components/Input';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
+import { BASECOUNT } from 'utils/constants';
 import rootStore from 'store/RootStore';
 
 import styles from './Search.module.scss';
@@ -18,9 +19,9 @@ const Search: React.FC = () => {
   const handleSearch = (event: FormEvent): void => {
     event.preventDefault();
     if (value === '') {
-      navigate('?count=6');
+      navigate(`?count=${BASECOUNT}`);
     } else {
-      navigate(`?search=${value}&count=6`);
+      navigate(`?search=${value}&count=${BASECOUNT}`);
     }
   };
 

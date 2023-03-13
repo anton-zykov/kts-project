@@ -21,9 +21,7 @@ export const Loader: React.FC<LoaderProps> = React.memo(
     }
 
     return (
-      <div
-        className={className ? className : `${styles[`Loader${size}`]}`}
-      ></div>
+      <div className={className ? className : `${styles[`Loader${size}`]}`} />
     );
   }
 );

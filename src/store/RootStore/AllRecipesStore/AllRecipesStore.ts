@@ -5,16 +5,17 @@ import {
   action,
   runInAction,
 } from 'mobx';
-import { getSixRecipes } from 'services/recipes';
-import { Recipe } from 'store/models';
+import { getRecipes } from 'services/recipes';
+import { normalizeRecipe, RecipeApi, RecipeModel } from 'store/models';
+import { BASECOUNT } from 'utils/constants';
+import { Meta } from 'utils/types';
 
-import { Meta } from './types';
 import RootStore from '../RootStore';
 
 type PrivateFields = '_recipes' | '_meta' | '_maxRecipes';
 
 export default class AllRecipesStore {
-  private _recipes: Recipe[] = [];
+  private _recipes: RecipeModel[] = [];
   private _meta: Meta = Meta.initial;
   private _rootStore: RootStore;
   private _maxRecipes: number = 0;
@@ -33,7 +34,7 @@ export default class AllRecipesStore {
     });
   }
 
-  get recipes(): Recipe[] {
+  get recipes(): RecipeModel[] {
     return this._recipes;
   }
 
@@ -52,16 +53,25 @@ export default class AllRecipesStore {
   async fetchRecipes(): Promise<any> {
     this._meta = Meta.loading;
     try {
-      const data = await getSixRecipes(
+      const data = await getRecipes(
         this._recipes.length,
-        Number(this._rootStore.query.getParam('count')),
+        /* Всегда загружаем BASECOUNT рецептов, кроме случая,
+        когда страница загружается с эксплицитным указанием count. */
+        this._recipes.length === 0
+          ? Number(this._rootStore.query.getParam('count'))
+          : BASECOUNT,
         this._rootStore.query.getParam('search')
       );
+
+      if (!data.hasOwnProperty('results'))
+        throw new Error('Server did not respond with data.');
+
       runInAction(() => {
         this._meta = Meta.success;
-        this._recipes = this._recipes.concat(data.results);
+        this._recipes = this._recipes.concat(
+          data.results.map((r: RecipeApi): RecipeModel => normalizeRecipe(r))
+        );
         this._maxRecipes = data.totalResults;
-        this._rootStore.query.updateCountOnScroll(this._recipes.length);
       });
     } catch (e: any) {
       alert(e.message);

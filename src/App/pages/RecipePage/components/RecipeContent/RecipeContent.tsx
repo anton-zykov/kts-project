@@ -1,13 +1,11 @@
 import React from 'react';
 
-import parse from 'html-react-parser';
-import { Recipe } from 'store/models';
+import { RecipeModel } from 'store/models';
 
 import styles from './RecipeContent.module.scss';
-import { getInstructions, updateLinks } from './utils';
 
 export type RecipeContentProps = {
-  recipe: Recipe;
+  recipe: RecipeModel;
 };
 
 const RecipeContent: React.FC<RecipeContentProps> = React.memo(({ recipe }) => {
@@ -25,23 +23,21 @@ const RecipeContent: React.FC<RecipeContentProps> = React.memo(({ recipe }) => {
         <div className={styles.recipe__rating}>
           <img src="/like.svg" alt="likes" />
           <span className={styles.recipe__timeRatingText}>
-            {recipe.aggregateLikes} Likes
+            {recipe.likes} Likes
           </span>
         </div>
       </div>
-      <div className={styles.recipe__summary}>
-        {parse(updateLinks(recipe.summary))}
-      </div>
+      <div className={styles.recipe__summary}>{recipe.summary}</div>
       <div className={styles.recipe__ingredients}>
         <ul>
-          {recipe.extendedIngredients.map((ingr) => (
-            <li key={ingr.original}>{ingr.original}</li>
+          {recipe.ingredients.map((ingr) => (
+            <li key={ingr}>{ingr}</li>
           ))}
         </ul>
       </div>
       <div className={styles.recipe__instructions}>
         <ol>
-          {getInstructions(recipe).map((instr, index) => (
+          {recipe.instructions.map((instr, index) => (
             <li key={index}>{instr}</li>
           ))}
         </ol>
