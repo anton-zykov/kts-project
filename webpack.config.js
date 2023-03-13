@@ -92,6 +92,7 @@ module.exports = {
       models: path.join(srcPath, 'models'),
       services: path.join(srcPath, 'services'),
       store: path.join(srcPath, 'store'),
+      src: path.join(srcPath),
       public: path.join(contentPath),
     },
   },
