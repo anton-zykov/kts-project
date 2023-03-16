@@ -2,12 +2,13 @@
 @use 'styles/mixins.module.scss' as mxn;
 
 .multiDropdown {
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   width: 100%;
-  font-family: 'Avenir', sans-serif;
-  font-style: normal;
+  @include mxn.font-tiny;
+
   
   &__header {
     background: linear-gradient(100deg, #FFF0F0 0%, #FFDFDF 100%);
@@ -19,25 +20,26 @@
     @include mxn.font-tiny;
     line-height: 16px;
     color: var.$color-black;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     &_empty {
       opacity: 0.5;
     }
   }
-}
 
-.selected {
-  background: #FFE5E5;
-  padding: 10px;
-  height: 16px;
-  border: transparent;
-  border-radius: var.$global-border-radius;
-  @include mxn.font-tiny;
-  color: var.$color-black;
-}
-
-.not-selected {
-  @extend .selected;
-  background: #FFF7F7;
-  opacity: 0.8;
+  &__selected {
+    background: var.$color-pink-gradient;
+    border-radius: var.$global-border-radius;
+    z-index: 1;
+    padding: 10px;
+    height: 16px;
+    color: var.$color-black;
+  }
+  
+  &__not-selected {
+    @extend .multiDropdown__selected;
+    background: var.$color-bright-pink-gradient;
+  }
 }

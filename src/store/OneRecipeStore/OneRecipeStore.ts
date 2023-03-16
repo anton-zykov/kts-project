@@ -15,7 +15,7 @@ type PrivateFields = '_recipe' | '_meta';
 
 export default class OneRecipeStore implements ILocalStore {
   private _recipe: RecipeModel | null = null;
-  private _meta: Meta = Meta.initial;
+  private _meta = Meta.initial;
   private _rootStore: RootStore;
   private readonly _id: number;
 
@@ -48,19 +48,22 @@ export default class OneRecipeStore implements ILocalStore {
 
     if (recipeInGlobalStore) {
       this._recipe = recipeInGlobalStore;
-    } else {
-      try {
-        const data: RecipeApi = await getOneRecipe(this._id);
-        if (data) {
-          runInAction(() => {
-            this._recipe = normalizeRecipe(data);
-            this._meta = Meta.success;
-          });
-        } else throw new Error('The server did not send any data.');
-      } catch (e: any) {
-        alert(e.message);
-        this._meta = Meta.error;
-      }
+      this._meta = Meta.success;
+      return;
+    }
+
+    try {
+      const data: RecipeApi = await getOneRecipe(this._id);
+      if (data) {
+        runInAction(() => {
+          this._recipe = normalizeRecipe(data);
+          this._meta = Meta.success;
+        });
+      } else throw new Error('The server did not send any data.');
+    } catch (e: any) {
+      alert(e.message);
+      this._meta = Meta.error;
+      this._recipe = null;
     }
   }
 

@@ -8,6 +8,7 @@
   }
   
   &__searchButton {
+    cursor: pointer;
     @include mxn.rounded-square(36px);
     @include mxn.svgBackground('~/public/search.svg');
   } 

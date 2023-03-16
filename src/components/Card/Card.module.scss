@@ -2,6 +2,7 @@
 @use 'styles/mixins.module.scss' as mxn;
 
 .card {
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: stretch;

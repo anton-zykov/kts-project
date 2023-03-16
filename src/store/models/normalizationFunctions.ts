@@ -7,13 +7,23 @@ const insertSpaces = (s: string): string => {
 };
 
 // Пошаговые инструкции преобразуются в массив.
-export const getInstructions = (analyzedInstructions: any): string[] => {
-  return analyzedInstructions[0].steps.reduce(
-    (result: string[], current: { step: string }) => {
-      return result.concat(insertSpaces(current.step));
-    },
-    []
-  );
+export const getInstructions = (
+  analyzedInstructions: {
+    steps: { step: string }[];
+  }[]
+): string[] => {
+  // У части рецептов нет пошаговой инструкции, поэтому нужна проверка.
+  if (
+    analyzedInstructions.length > 0 &&
+    analyzedInstructions[0].hasOwnProperty('steps')
+  ) {
+    return analyzedInstructions[0].steps.reduce(
+      (result: string[], current: { step: string }) => {
+        return result.concat(insertSpaces(current.step));
+      },
+      []
+    );
+  } else return [];
 };
 
 // Обновляются ссылки на похожие рецепты, предоставляемые из api, так, чтобы они вели на страницы нашего приложения.

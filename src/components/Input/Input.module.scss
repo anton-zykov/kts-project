@@ -9,10 +9,10 @@
   padding: 10px;
   @include mxn.font-tiny;
   color: var.$color-black;
-  background: linear-gradient(90deg, #FFF0F0 0%, #FFDFDF 100%);
+  background: var.$color-bright-pink-gradient;
 
   &:focus {
-    background: linear-gradient(90deg, #FFBCBC 0%, #FFA1A1 100%);
+    background: var.$color-pink-gradient;
     outline: none;
   }
 }

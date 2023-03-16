@@ -1,73 +1,68 @@
 import React from 'react';
 
-import styles from './MultiDropdown.module.scss';
+import { MealType } from 'utils/types';
 
-export type Option = {
-  /** Ключ варианта, используется для отправки на бек/использования в коде */
-  key: string;
-  /** Значение варианта, отображается пользователю */
-  value: string;
-};
+import styles from './MultiDropdown.module.scss';
 
 /** Пропсы, которые принимает компонент Dropdown */
 export type MultiDropdownProps = {
   /** Массив возможных вариантов для выбора */
-  options: Option[];
+  mealTypes: MealType[];
   /** Текущие выбранные значения поля, может быть пустым */
-  value: Option[];
+  value: MealType[];
   /** Callback, вызываемый при выборе варианта */
-  onChange: (value: Option[]) => void;
-  /** Заблокирован ли дропдаун */
-  disabled?: boolean;
+  onChange: (value: MealType[]) => void;
   /** Преобразовать выбранные значения в строку. Отображается в дропдауне в качестве выбранного значения */
-  pluralizeOptions: (value: Option[]) => string;
+  pluralizeOptions: (value: MealType[]) => string;
 };
 
 export const MultiDropdown: React.FC<MultiDropdownProps> = ({
-  options,
+  mealTypes,
   value,
   onChange,
-  disabled,
   pluralizeOptions,
 }) => {
   const [expanded, setExpanded] = React.useState(false);
 
-  React.useEffect(() => {
-    return () => setExpanded(false);
-  }, [disabled]);
-
-  const ifSelected = (opt: Option): string => {
-    return value.some((e) => e.key === opt.key) ? 'selected' : 'not-selected';
+  // Функция для эффекта, закрывающего дропдаун при клике куда-то в сторону.
+  const handleSideClick = (event: MouseEvent) => {
+    if (!(event.target as HTMLElement).closest('#multidropdown'))
+      setExpanded(false);
   };
 
-  const handleChange = (opt: Option): void => {
-    if (ifSelected(opt) === 'selected') {
-      onChange(value.filter((e) => e.key !== opt.key));
-    } else {
-      onChange(value.concat(opt));
-    }
+  React.useEffect(() => {
+    if (expanded) document.addEventListener('click', handleSideClick);
+    else document.removeEventListener('click', handleSideClick);
+  }, [expanded]);
+
+  const ifSelected = (mt: MealType): string => {
+    return value.some((e) => e.key === mt.key)
+      ? 'multiDropdown__selected'
+      : 'multiDropdown__not-selected';
+  };
+
+  const handleChange = (mt: MealType): void => {
+    if (ifSelected(mt) === 'multiDropdown__selected')
+      onChange(value.filter((e) => e.key !== mt.key));
+    else onChange(value.concat(mt));
   };
 
   return (
-    <div className={styles.multiDropdown}>
+    <div className={styles.multiDropdown} id="multidropdown">
       <div
-        className={
-          disabled
-            ? styles.multiDropdown__header_disabled
-            : styles.multiDropdown__header
-        }
-        onClick={() => setExpanded(disabled ? false : !expanded)}
+        className={styles.multiDropdown__header}
+        onClick={() => setExpanded(!expanded)}
       >
-        {pluralizeOptions(value)}
+        {pluralizeOptions(value) || 'Select Dish Categories'}
       </div>
       {expanded &&
-        options.map((opt) => (
+        mealTypes.map((mt: MealType) => (
           <div
-            key={opt.key}
-            className={ifSelected(opt)}
-            onClick={(event) => handleChange(opt)}
+            key={mt.key}
+            className={styles[ifSelected(mt)]}
+            onClick={() => handleChange(mt)}
           >
-            {opt.value}
+            {mt.value}
           </div>
         ))}
     </div>

@@ -26,7 +26,11 @@ const RecipePage: React.FC = () => {
     return (
       <div className={styles.page}>
         <div className={styles.recipe}>
-          <RecipePhoto recipe={recipe} onClick={() => navigate(-1)} />
+          <RecipePhoto
+            title={recipe.title}
+            image={recipe.image}
+            onClick={() => navigate(-1)}
+          />
           <RecipeContent recipe={recipe} />
         </div>
       </div>
