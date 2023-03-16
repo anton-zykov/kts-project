@@ -1,10 +1,14 @@
 import axios from 'axios';
 import { MealType } from 'utils/types';
 
-const apiKey1: string = '55f1c4089ef4436ba921d637e72b3053';
-const apiKey2: string = 'a0b450164ebb4fff8a2765b6dd37ad48';
-const apiKey3: string = 'fcc66e7508964a99802a120ea4417227';
-const apiKey: string = '11d384b0beef43fa942e43f83285b4b7';
+const apiKeys = [
+  '55f1c4089ef4436ba921d637e72b3053',
+  'a0b450164ebb4fff8a2765b6dd37ad48',
+  '11d384b0beef43fa942e43f83285b4b7',
+  'fcc66e7508964a99802a120ea4417227',
+];
+
+let currentKey = 0;
 
 export type getRecipesProps = {
   offset: number;
@@ -28,16 +32,30 @@ export const getRecipes = async ({
     .join(',')
     .replace(/\s/g, '+');
 
-  const response = await axios.get(
-    // eslint-disable-next-line prettier/prettier
-    `https://api.spoonacular.com/recipes/complexSearch?sort=${random}&query=${query}&fillIngredients=true&addRecipeNutrition=true&instructionsRequired=true&number=${count}&offset=${offset}&type=${mealTypesAsString}&apiKey=${apiKey}`
-  );
-  return response.data;
+  while (currentKey <= 3) {
+    try {
+      const response = await axios.get(
+        // eslint-disable-next-line prettier/prettier
+        `https://api.spoonacular.com/recipes/complexSearch?sort=${random}&query=${query}&fillIngredients=true&addRecipeNutrition=true&instructionsRequired=true&number=${count}&offset=${offset}&type=${mealTypesAsString}&apiKey=${apiKeys[currentKey]}`
+      );
+      return response.data;
+    } catch (error: any) {
+      if (error.response && error.response.status === 402) currentKey += 1;
+      else throw new Error('All keys are used. Please wait until tomorrow.');
+    }
+  }
 };
 
 export const getOneRecipe = async (id: number) => {
-  const response = await axios.get(
-    `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=true&apiKey=${apiKey}`
-  );
-  return response.data;
+  while (currentKey <= 3) {
+    try {
+      const response = await axios.get(
+        `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=true&apiKey=${apiKeys[currentKey]}`
+      );
+      return response.data;
+    } catch (error: any) {
+      if (error.response && error.response.status === 402) currentKey += 1;
+      else throw new Error('All keys are used. Please wait until tomorrow.');
+    }
+  }
 };
