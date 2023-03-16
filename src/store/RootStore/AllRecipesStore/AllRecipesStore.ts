@@ -61,6 +61,7 @@ export default class AllRecipesStore {
             : Number(this._rootStore.query.getParam('count')),
         query: this._rootStore.query.getParam('search') ?? '',
         mealTypes: this._rootStore.query.getArrayOfMealTypes(),
+        random: this._rootStore.query.getParam('sort') ?? '',
       };
       const data = await getRecipes(requestParams);
 

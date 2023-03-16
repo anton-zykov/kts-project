@@ -3,7 +3,9 @@
 
 .button {
   position: relative;
-  padding: 8px 14px;
+  padding-top: auto;
+  padding-left: 14px;
+  padding-right: 14px;
   border: var.$color-red;
   border-radius: var.$global-border-radius;
   @include mxn.font-medium;

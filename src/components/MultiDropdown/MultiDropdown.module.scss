@@ -3,10 +3,12 @@
 
 .multiDropdown {
   cursor: pointer;
+  position: relative;
+  width: 100%;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  width: 100%;
   @include mxn.font-tiny;
 
   
@@ -14,7 +16,7 @@
     background: linear-gradient(100deg, #FFF0F0 0%, #FFDFDF 100%);
     padding: 10px;
     margin-bottom: 2px;
-    height: 16px;
+    min-height: 16px;
     border: transparent;
     border-radius: var.$global-border-radius;
     @include mxn.font-tiny;

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Button } from 'components/Button';
 import { MultiDropdown } from 'components/MultiDropdown';
 import { BASECOUNT } from 'config/constants';
 import { useNavigate } from 'react-router-dom';
@@ -33,8 +34,24 @@ const CategoriesFilter: React.FC = React.memo(() => {
       .join(', ');
   }, []);
 
+  const handleRandomizeChange = React.useCallback(async () => {
+    rootStore.query.getParam('sort')
+      ? rootStore.query.setSort(undefined)
+      : rootStore.query.setSort('random');
+
+    rootStore.recipes.clearRecipes();
+    navigate(rootStore.query.getURLParams());
+    await rootStore.recipes.fetchRecipes();
+  }, []);
+
   return (
-    <div className={styles.main__categories}>
+    <div className={styles.main__categoriesAndRandom}>
+      <Button
+        className={styles.main__shuffleButton}
+        onClick={handleRandomizeChange}
+      >
+        {rootStore.query.getParam('sort') ? 'Randomize:⠀On' : 'Randomize:⠀Off'}
+      </Button>
       <MultiDropdown
         mealTypes={mealTypes}
         value={selectedCategories}

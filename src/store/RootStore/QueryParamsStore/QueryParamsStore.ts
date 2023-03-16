@@ -18,12 +18,13 @@ export default class QueryParamsStore {
       setCount: action,
       setSearch: action,
       setTypes: action,
+      setSort: action,
       setSearchCount: action,
     });
   }
 
   getParam(key: string): undefined | string {
-    // _params.count всегда строка с числом, _params.search и _params.mealType всегда строка или undefined.
+    // _params.count всегда строка с числом, _params.search, _params.mealType, _params.sort всегда строка или undefined.
     return this._params[key] === undefined
       ? undefined
       : String(this._params[key]);
@@ -46,6 +47,7 @@ export default class QueryParamsStore {
         `count=${this._params.count}`,
         this._params.search ? `search=${this._params.search}` : null,
         this._params.type ? `type=${this._params.type}` : null,
+        this._params.sort ? `sort=${this._params.sort}` : null,
       ]
         .filter((x) => x)
         .join('&')
@@ -66,6 +68,10 @@ export default class QueryParamsStore {
       .slice(1);
   }
 
+  setSort(newSort: string | undefined): void {
+    this._params.sort = newSort;
+  }
+
   setSearchCount(searchCount: string): void {
     searchCount = searchCount.startsWith('?')
       ? searchCount.slice(1)
@@ -82,5 +88,8 @@ export default class QueryParamsStore {
 
     this._params.search =
       newParams.search === undefined ? undefined : String(newParams.search);
+
+    this._params.sort =
+      newParams.sort === undefined ? undefined : String(newParams.sort);
   }
 }

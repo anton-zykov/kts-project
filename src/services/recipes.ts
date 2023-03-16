@@ -1,15 +1,16 @@
 import axios from 'axios';
 import { MealType } from 'utils/types';
 
-const apiKey: string = '55f1c4089ef4436ba921d637e72b3053';
-const apiKey1: string = 'a0b450164ebb4fff8a2765b6dd37ad48';
-const apiKey2: string = 'fcc66e7508964a99802a120ea4417227';
+const apiKey1: string = '55f1c4089ef4436ba921d637e72b3053';
+const apiKey2: string = 'a0b450164ebb4fff8a2765b6dd37ad48';
+const apiKey: string = 'fcc66e7508964a99802a120ea4417227';
 
 export type getRecipesProps = {
   offset: number;
   count: number;
   query: string;
   mealTypes: MealType[];
+  random: string;
 };
 
 export const getRecipes = async ({
@@ -17,6 +18,7 @@ export const getRecipes = async ({
   count,
   query,
   mealTypes,
+  random,
 }: getRecipesProps) => {
   const mealTypesAsString = mealTypes
     .reduce((categoryKeys: string[], current) => {
@@ -26,7 +28,8 @@ export const getRecipes = async ({
     .replace(/\s/g, '+');
 
   const response = await axios.get(
-    `https://api.spoonacular.com/recipes/complexSearch?query=${query}&fillIngredients=true&addRecipeNutrition=true&instructionsRequired=true&number=${count}&offset=${offset}&type=${mealTypesAsString}&apiKey=${apiKey}`
+    // eslint-disable-next-line prettier/prettier
+    `https://api.spoonacular.com/recipes/complexSearch?sort=${random}&query=${query}&fillIngredients=true&addRecipeNutrition=true&instructionsRequired=true&number=${count}&offset=${offset}&type=${mealTypesAsString}&apiKey=${apiKey}`
   );
   return response.data;
 };

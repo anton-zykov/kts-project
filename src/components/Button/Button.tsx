@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import styles from './Button.module.scss';
 
 export type ButtonProps = React.PropsWithChildren<{
-  children?: React.ReactNode;
+  children?: string;
   className?: string;
   onClick?: React.MouseEventHandler;
 }> &
@@ -17,7 +17,7 @@ export const Button: React.FC<ButtonProps> = React.memo(
 
     return (
       <button className={btnClass} onClick={onClick}>
-        <div>{children}</div>
+        {children}
       </button>
     );
   }

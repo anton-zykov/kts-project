@@ -1,7 +1,19 @@
+@use 'styles/mixins.module.scss' as mxn;
+@use 'styles/variables.module.scss' as var;
+
 .main{
-  &__categories {
+  &__categoriesAndRandom {
     position: relative;
     height: 38px;
-    margin: 16px 8px 20px 152px;
- }
+    
+    display: flex;
+    gap: 17px;
+
+    margin: 16px 8px 20px 8px;
+  }
+
+ &__shuffleButton {
+    height: 36px;
+    @include mxn.font-tiny;
+  }
 }

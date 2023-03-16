@@ -2,7 +2,7 @@
 @use 'styles/mixins.module.scss' as mxn;
 
 .main {
-  background: top/contain no-repeat var.$color-content-background url(~/public/pattern.png);
   @include mxn.content-positioning-on-page;
+  background: top/contain no-repeat var.$color-content-background url(~/public/pattern.png);
   padding: 14px 24px;
 }

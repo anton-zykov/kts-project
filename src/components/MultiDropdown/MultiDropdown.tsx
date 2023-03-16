@@ -16,55 +16,52 @@ export type MultiDropdownProps = {
   pluralizeOptions: (value: MealType[]) => string;
 };
 
-export const MultiDropdown: React.FC<MultiDropdownProps> = ({
-  mealTypes,
-  value,
-  onChange,
-  pluralizeOptions,
-}) => {
-  const [expanded, setExpanded] = React.useState(false);
+export const MultiDropdown: React.FC<MultiDropdownProps> = React.memo(
+  ({ mealTypes, value, onChange, pluralizeOptions }) => {
+    const [expanded, setExpanded] = React.useState(false);
 
-  // Функция для эффекта, закрывающего дропдаун при клике куда-то в сторону.
-  const handleSideClick = (event: MouseEvent) => {
-    if (!(event.target as HTMLElement).closest('#multidropdown'))
-      setExpanded(false);
-  };
+    // Функция для эффекта, закрывающего дропдаун при клике куда-то в сторону.
+    const handleSideClick = React.useCallback((event: MouseEvent) => {
+      if (!(event.target as HTMLElement).closest('#multidropdown'))
+        setExpanded(false);
+    }, []);
 
-  React.useEffect(() => {
-    if (expanded) document.addEventListener('click', handleSideClick);
-    else document.removeEventListener('click', handleSideClick);
-  }, [expanded]);
+    React.useEffect(() => {
+      if (expanded) document.addEventListener('click', handleSideClick);
+      else document.removeEventListener('click', handleSideClick);
+    }, [expanded]);
 
-  const ifSelected = (mt: MealType): string => {
-    return value.some((e) => e.key === mt.key)
-      ? 'multiDropdown__selected'
-      : 'multiDropdown__not-selected';
-  };
+    const ifSelected = (mt: MealType): string => {
+      return value.some((e) => e.key === mt.key)
+        ? 'multiDropdown__selected'
+        : 'multiDropdown__not-selected';
+    };
 
-  const handleChange = (mt: MealType): void => {
-    if (ifSelected(mt) === 'multiDropdown__selected')
-      onChange(value.filter((e) => e.key !== mt.key));
-    else onChange(value.concat(mt));
-  };
+    const handleChange = (mt: MealType): void => {
+      if (ifSelected(mt) === 'multiDropdown__selected')
+        onChange(value.filter((e) => e.key !== mt.key));
+      else onChange(value.concat(mt));
+    };
 
-  return (
-    <div className={styles.multiDropdown} id="multidropdown">
-      <div
-        className={styles.multiDropdown__header}
-        onClick={() => setExpanded(!expanded)}
-      >
-        {pluralizeOptions(value) || 'Select Dish Categories'}
+    return (
+      <div className={styles.multiDropdown} id="multidropdown">
+        <div
+          className={styles.multiDropdown__header}
+          onClick={() => setExpanded(!expanded)}
+        >
+          {pluralizeOptions(value) || 'Select Dish Categories'}
+        </div>
+        {expanded &&
+          mealTypes.map((mt: MealType) => (
+            <div
+              key={mt.key}
+              className={styles[ifSelected(mt)]}
+              onClick={() => handleChange(mt)}
+            >
+              {mt.value}
+            </div>
+          ))}
       </div>
-      {expanded &&
-        mealTypes.map((mt: MealType) => (
-          <div
-            key={mt.key}
-            className={styles[ifSelected(mt)]}
-            onClick={() => handleChange(mt)}
-          >
-            {mt.value}
-          </div>
-        ))}
-    </div>
-  );
-};
+    );
+  }
+);
