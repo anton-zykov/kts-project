@@ -3,7 +3,8 @@ import { MealType } from 'utils/types';
 
 const apiKey1: string = '55f1c4089ef4436ba921d637e72b3053';
 const apiKey2: string = 'a0b450164ebb4fff8a2765b6dd37ad48';
-const apiKey: string = 'fcc66e7508964a99802a120ea4417227';
+const apiKey3: string = 'fcc66e7508964a99802a120ea4417227';
+const apiKey: string = '11d384b0beef43fa942e43f83285b4b7';
 
 export type getRecipesProps = {
   offset: number;

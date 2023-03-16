@@ -9,10 +9,12 @@
   padding: 10px;
   @include mxn.font-tiny;
   color: var.$color-black;
-  background: var.$color-bright-pink-gradient;
+  background: var.$color-bright-pink;
+  @include mxn.background-color-transition(0.5s);
+  @include mxn.shadow;
 
   &:focus {
-    background: var.$color-pink-gradient;
+    background: var.$color-pink;
     outline: none;
   }
 }

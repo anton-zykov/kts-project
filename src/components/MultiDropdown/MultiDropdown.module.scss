@@ -19,6 +19,7 @@
     min-height: 16px;
     border: transparent;
     border-radius: var.$global-border-radius;
+    @include mxn.shadow;
     @include mxn.font-tiny;
     line-height: 16px;
     color: var.$color-black;
@@ -32,16 +33,19 @@
   }
 
   &__selected {
-    background: var.$color-pink-gradient;
+    background: var.$color-pink;
     border-radius: var.$global-border-radius;
     z-index: 1;
     padding: 10px;
     height: 16px;
     color: var.$color-black;
+    @include mxn.shadow;
+    @include mxn.background-color-transition(0.5s);
+    @include mxn.animationFadeIn(1s);
   }
   
   &__not-selected {
     @extend .multiDropdown__selected;
-    background: var.$color-bright-pink-gradient;
+    background: var.$color-bright-pink;
   }
 }

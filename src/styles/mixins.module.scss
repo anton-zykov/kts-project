@@ -4,6 +4,24 @@
   position: relative;
   width: var.$content-width;
   margin: auto;
+  @include animationFadeIn(0.5s);
+}
+
+@mixin animationFadeIn($time) {
+  animation: fadein ($time);
+
+  @keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+}
+
+@mixin background-color-transition($time) {
+  transition: background-color ease-out ($time);
+}
+
+@mixin shadow {
+  box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.18);
 }
 
 @mixin font-tiny {

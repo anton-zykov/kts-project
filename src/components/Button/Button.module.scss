@@ -12,9 +12,11 @@
   line-height: 25px;
   background: var.$color-red;
   color: var.$color-white;
+  @include mxn.shadow;
+  transition: opacity 0.3s ease-out 100ms;
 
   &:hover {
-    opacity: 50%;
+    opacity: 60%;
   }
 }
 
