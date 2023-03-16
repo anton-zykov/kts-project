@@ -4,14 +4,13 @@ import { Card } from 'components/Card';
 import { WithLoader } from 'components/WithLoader';
 import { observer } from 'mobx-react-lite';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { Recipe } from 'store/models';
+import { RecipeModel } from 'store/models';
 import rootStore from 'store/RootStore';
 
 import styles from './Cards.module.scss';
-import { getCalories, getIngredients } from './utils';
 
 export type CardsProps = {
-  recipes: Recipe[];
+  recipes: RecipeModel[];
   handleScroll: VoidFunction;
   onClick: (id: number) => void;
 };
@@ -36,8 +35,8 @@ const Cards: React.FC<CardsProps> = ({ recipes, handleScroll, onClick }) => {
             key={recipe.id}
             image={recipe.image}
             title={recipe.title}
-            subtitle={getIngredients(recipe)}
-            kcal={getCalories(recipe)}
+            subtitle={recipe.allIngredientsLine}
+            kcal={recipe.calories}
             onClick={() => onClick(recipe.id)}
           />
         ))}

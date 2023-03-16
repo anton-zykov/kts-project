@@ -1,5 +1,6 @@
 import { action, makeObservable, observable } from 'mobx';
 import * as qs from 'qs';
+import { BASECOUNT } from 'utils/constants';
 
 import RootStore from '../RootStore';
 
@@ -7,7 +8,6 @@ type PrivateFields = '_params';
 
 export default class QueryParamsStore {
   private _params: qs.ParsedQs = {};
-  private _search: undefined | string;
   private _rootStore: RootStore;
 
   constructor(rootStore: RootStore) {
@@ -15,7 +15,6 @@ export default class QueryParamsStore {
     makeObservable<QueryParamsStore, PrivateFields>(this, {
       _params: observable.ref,
       setSearchCount: action,
-      updateCountOnScroll: action,
     });
   }
 
@@ -26,21 +25,17 @@ export default class QueryParamsStore {
       : String(this._params[key]);
   }
 
-  updateCountOnScroll(newCount: number) {
-    this._params.count = String(newCount);
-  }
-
   setSearchCount(searchCount: string): void {
     searchCount = searchCount.startsWith('?')
       ? searchCount.slice(1)
       : searchCount;
+
     const newParams = qs.parse(searchCount);
 
-    // Сработает только после первой загрузки страницы.
-    if (this._params.count === undefined) {
-      this._params.count =
-        newParams.count === undefined ? '6' : String(newParams.count);
-    }
+    this._params.count =
+      newParams.count === undefined
+        ? String(BASECOUNT)
+        : String(newParams.count);
 
     if (newParams.search !== this._params.search) {
       this._params.search =
