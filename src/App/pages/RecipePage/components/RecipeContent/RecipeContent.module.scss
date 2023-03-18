@@ -30,6 +30,16 @@
     margin-bottom: 25px;
   }
   
+  &__timeIcon {
+    @include mxn.square(18px);
+    @include mxn.svgBackground('~/public/time.svg');
+  }
+
+  &__ratingIcon {
+    @include mxn.square(18px);
+    @include mxn.svgBackground('~/public/like.svg');
+  }
+
   &__time, &__rating {
     display: flex;
     justify-content: flex-start;

@@ -5,7 +5,7 @@ const TsCheckerPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const buildPath = path.resolve(__dirname, 'dist');
+const buildPath = path.resolve(__dirname, 'build');
 const srcPath = path.resolve(__dirname, 'src');
 const contentPath = path.resolve(__dirname, 'public');
 
@@ -41,7 +41,7 @@ const getSettingsForStyles = (withModules = false) => {
 module.exports = {
   entry: path.join(srcPath, 'index.tsx'),
   output: {
-    publicPath: '/',
+    publicPath: isProd ? '/kts-project/' : '/',
     path: buildPath,
     filename: 'bundle.js',
   },

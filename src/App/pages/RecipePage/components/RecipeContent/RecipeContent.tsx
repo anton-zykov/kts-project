@@ -15,13 +15,13 @@ const RecipeContent: React.FC<RecipeContentProps> = React.memo(({ recipe }) => {
       <div className={styles.recipe__title}>{recipe.title}</div>
       <div className={styles.recipe__timeRating}>
         <div className={styles.recipe__time}>
-          <img src="/time.svg" alt="cooking time" />
+          <div className={styles.recipe__timeIcon} />
           <span className={styles.recipe__timeRatingText}>
             {recipe.readyInMinutes} minutes
           </span>
         </div>
         <div className={styles.recipe__rating}>
-          <img src="/like.svg" alt="likes" />
+          <div className={styles.recipe__ratingIcon} />
           <span className={styles.recipe__timeRatingText}>
             {recipe.likes} Likes
           </span>
