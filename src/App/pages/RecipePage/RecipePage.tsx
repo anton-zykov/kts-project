@@ -17,8 +17,8 @@ const RecipePage: React.FC = () => {
   const recipeStore = useLocalStore(() => new OneRecipeStore(id, rootStore));
 
   React.useEffect(() => {
-    recipeStore.fetchRecipe();
-  }, []);
+    recipeStore.fetchRecipe(id);
+  }, [id]);
 
   const recipe = recipeStore.recipe;
 

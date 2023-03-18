@@ -31,7 +31,7 @@ export const updateLinks = (
   summary: string
 ): string | JSX.Element | JSX.Element[] => {
   const regex = /https:\/\/spoonacular\.com\/recipes\/\D+/g;
-  return parse(summary.replaceAll(regex, '/recipe/'));
+  return parse(summary.replaceAll(regex, '/#/recipe/'));
 };
 
 // Создается строка ингредиентов, разделённых плюсами, для показа на главной странице.

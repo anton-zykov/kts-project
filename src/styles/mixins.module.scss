@@ -2,7 +2,8 @@
 
 @mixin content-positioning-on-page {
   position: relative;
-  width: var.$content-width;
+  width: calc(100% - 40px);
+  max-width: 800px;
   margin: auto;
   @include animationFadeIn(0.5s);
 }

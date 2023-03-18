@@ -3,6 +3,7 @@ import React from 'react';
 import { Card } from 'components/Card';
 import CardSkeleton from 'components/CardSkeleton/CardSkeleton';
 import { WithLoader } from 'components/WithLoader';
+import { BASECOUNT } from 'config/constants';
 import { observer } from 'mobx-react-lite';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { RecipeModel } from 'store/models';
@@ -32,12 +33,11 @@ const Cards: React.FC<CardsProps> = ({ recipes, handleScroll, onClick }) => {
       loader={<WithLoader loading={loading}>⠀</WithLoader>}
     >
       <div className={styles.main__content}>
-        {rootStore.recipes.meta === Meta.loading && (
-          <div>
-            <CardSkeleton /> <CardSkeleton />
-          </div>
-        )}
-        {rootStore.recipes.meta === Meta.success &&
+        {rootStore.recipes.meta === Meta.loading &&
+          rootStore.recipes.recipes.length === 0 &&
+          new Array(BASECOUNT).fill(null).map(() => <CardSkeleton />)}
+        {(rootStore.recipes.meta === Meta.success ||
+          rootStore.recipes.recipes.length > 0) &&
           recipes?.map((recipe) => (
             <Card
               key={recipe.id}

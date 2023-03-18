@@ -1,1 +1,1 @@
-export const BASECOUNT = 6;
+export const BASECOUNT = 12;

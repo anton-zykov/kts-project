@@ -17,11 +17,9 @@ export default class OneRecipeStore implements ILocalStore {
   private _recipe: RecipeModel | null = null;
   private _meta = Meta.initial;
   private _rootStore: RootStore;
-  private readonly _id: number;
 
   constructor(id: number, rootStore: RootStore) {
     this._rootStore = rootStore;
-    this._id = id;
     makeObservable<OneRecipeStore, PrivateFields>(this, {
       _recipe: observable,
       _meta: observable,
@@ -39,11 +37,11 @@ export default class OneRecipeStore implements ILocalStore {
     return this._meta;
   }
 
-  async fetchRecipe(): Promise<void> {
+  async fetchRecipe(id: number): Promise<void> {
     this._meta = Meta.loading;
     // Сначала проверяем, есть ли рецепт в основном сторе. При переходе с главной так и будет.
     const recipeInGlobalStore = this._rootStore.recipes.recipes.find(
-      (r) => r.id === this._id
+      (r) => r.id === id
     );
 
     if (recipeInGlobalStore) {
@@ -53,7 +51,7 @@ export default class OneRecipeStore implements ILocalStore {
     }
 
     try {
-      const data: RecipeApi = await getOneRecipe(this._id);
+      const data: RecipeApi = await getOneRecipe(id);
       if (data) {
         runInAction(() => {
           this._recipe = normalizeRecipe(data);
