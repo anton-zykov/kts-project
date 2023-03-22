@@ -22,6 +22,8 @@ const RecipePage: React.FC = () => {
 
   const recipe = recipeStore.recipe;
 
+  const onClick = React.useCallback(() => navigate(-1), []);
+
   if (recipe) {
     return (
       <div className={styles.page}>
@@ -29,7 +31,7 @@ const RecipePage: React.FC = () => {
           <RecipePhoto
             title={recipe.title}
             image={recipe.image}
-            onClick={() => navigate(-1)}
+            onClick={onClick}
           />
           <RecipeContent recipe={recipe} />
         </div>

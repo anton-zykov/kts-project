@@ -1,5 +1,5 @@
 import { BASECOUNT } from 'config/constants';
-import { action, makeObservable, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import * as qs from 'qs';
 import { MealType, mealTypes } from 'utils/types';
 
@@ -15,6 +15,8 @@ export default class QueryParamsStore {
     this._rootStore = rootStore;
     makeObservable<QueryParamsStore, PrivateFields>(this, {
       _params: observable.ref,
+      ArrayOfMealTypes: computed,
+      URLParams: computed,
       setCount: action,
       setSearch: action,
       setTypes: action,
@@ -30,7 +32,7 @@ export default class QueryParamsStore {
       : String(this._params[key]);
   }
 
-  getArrayOfMealTypes(): MealType[] {
+  get ArrayOfMealTypes(): MealType[] {
     if (!this._params.type) return [];
     else {
       const categoriesKeys = (this._params.type as string)
@@ -40,7 +42,7 @@ export default class QueryParamsStore {
     }
   }
 
-  getURLParams(): string {
+  get URLParams(): string {
     return (
       '?' +
       [

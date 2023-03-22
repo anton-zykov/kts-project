@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Button } from 'components/Button';
-import { MultiDropdown } from 'components/MultiDropdown';
 import { BASECOUNT } from 'config/constants';
 import { useNavigate } from 'react-router-dom';
+import { MultiDropdown } from 'src/App/pages/MainPage/components/MultiDropdown';
 import rootStore from 'store/RootStore/instance';
 import { MealType, mealTypes } from 'utils/types';
 
@@ -12,7 +12,7 @@ import styles from './CategoriesFilter.module.scss';
 const CategoriesFilter: React.FC = React.memo(() => {
   const [selectedCategories, setSelectedCategories] = React.useState<
     MealType[]
-  >(rootStore.query.getArrayOfMealTypes());
+  >(rootStore.query.ArrayOfMealTypes);
   const navigate = useNavigate();
 
   const handleChange = React.useCallback(async (newValue: MealType[]) => {
@@ -22,7 +22,7 @@ const CategoriesFilter: React.FC = React.memo(() => {
     rootStore.query.setCount(BASECOUNT);
 
     rootStore.recipes.clearRecipes();
-    navigate(rootStore.query.getURLParams());
+    navigate(rootStore.query.URLParams);
     await rootStore.recipes.fetchRecipes();
   }, []);
 
@@ -40,7 +40,7 @@ const CategoriesFilter: React.FC = React.memo(() => {
       : rootStore.query.setSort('random');
 
     rootStore.recipes.clearRecipes();
-    navigate(rootStore.query.getURLParams());
+    navigate(rootStore.query.URLParams);
     await rootStore.recipes.fetchRecipes();
   }, []);
 
@@ -55,8 +55,8 @@ const CategoriesFilter: React.FC = React.memo(() => {
       <MultiDropdown
         mealTypes={mealTypes}
         value={selectedCategories}
-        onChange={(newValue: MealType[]) => handleChange(newValue)}
-        pluralizeOptions={(value: MealType[]) => pluralizeOptions(value)}
+        onChange={handleChange}
+        pluralizeOptions={pluralizeOptions}
       />
     </div>
   );

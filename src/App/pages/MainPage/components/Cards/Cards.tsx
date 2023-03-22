@@ -1,30 +1,31 @@
 import React from 'react';
 
-import { Card } from 'components/Card';
-import CardSkeleton from 'components/CardSkeleton/CardSkeleton';
+import { CardSkeleton } from 'components/CardSkeleton/CardSkeleton';
 import { WithLoader } from 'components/WithLoader';
 import { BASECOUNT } from 'config/constants';
 import { observer } from 'mobx-react-lite';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useNavigate } from 'react-router-dom';
 import { RecipeModel } from 'store/models';
 import rootStore from 'store/RootStore';
 import { Meta } from 'utils/types';
 
+import { Card } from './Card';
 import styles from './Cards.module.scss';
 
-export type CardsProps = {
-  recipes: RecipeModel[];
-  handleScroll: VoidFunction;
-  onClick: (id: number) => void;
-};
-
-const Cards: React.FC<CardsProps> = ({ recipes, handleScroll, onClick }) => {
+const Cards: React.FC = () => {
+  const recipes: RecipeModel[] = rootStore.recipes.recipes;
   const loading = rootStore.recipes.meta === 'loading' ? true : false;
   const areThereMoreRecipes = rootStore.recipes.maxRecipes > recipes.length;
+  const navigate = useNavigate();
 
-  /* Без пробела в WithLoader страница ведет себя странно,
-  появляется вертикальная прокрутка, которая постоянно то исчезает,
-  то снова появляется. Пробовал менять размер контейнера, не помогает. */
+  const handleScroll = React.useCallback(async () => {
+    await rootStore.recipes.fetchRecipes();
+    rootStore.query.setCount(rootStore.recipes.recipes.length);
+
+    navigate(rootStore.query.URLParams);
+  }, []);
+
   return (
     <InfiniteScroll
       dataLength={recipes.length}
@@ -33,21 +34,14 @@ const Cards: React.FC<CardsProps> = ({ recipes, handleScroll, onClick }) => {
       loader={<WithLoader loading={loading}>⠀</WithLoader>}
     >
       <div className={styles.main__content}>
-        {rootStore.recipes.meta === Meta.loading &&
+        {loading &&
           rootStore.recipes.recipes.length === 0 &&
-          new Array(BASECOUNT).fill(null).map(() => <CardSkeleton />)}
+          new Array(BASECOUNT)
+            .fill(null)
+            .map((v, index) => <CardSkeleton key={index} />)}
         {(rootStore.recipes.meta === Meta.success ||
           rootStore.recipes.recipes.length > 0) &&
-          recipes?.map((recipe) => (
-            <Card
-              key={recipe.id}
-              image={recipe.image}
-              title={recipe.title}
-              subtitle={recipe.allIngredientsLine}
-              kcal={recipe.calories}
-              onClick={() => onClick(recipe.id)}
-            />
-          ))}
+          recipes?.map((recipe) => <Card key={recipe.id} recipe={recipe} />)}
       </div>
     </InfiniteScroll>
   );

@@ -7,7 +7,7 @@
   flex-direction: column;
   align-items: stretch;
   padding: 8px 12px;
-  min-width: 125px;
+  min-width: 100px;
   width: calc((100% - 65px) / 2);
   max-width: 155px;
   position: relative;
@@ -23,7 +23,7 @@
   }
 
   &__image {
-    margin: 3px 22px;
+    margin: 3px 4%;
   }
 
   &__title {
@@ -34,7 +34,6 @@
   &__subtitle {
     @include mxn.font-tiny;
     color: var.$color-dark-grey;
-    margin-bottom: 7px;
   }
 
   &__caloriesMoreBox {

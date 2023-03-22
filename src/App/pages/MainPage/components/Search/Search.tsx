@@ -1,4 +1,3 @@
-import { useState, FormEvent } from 'react';
 import React from 'react';
 
 import { Button } from 'components/Button';
@@ -10,12 +9,12 @@ import rootStore from 'store/RootStore';
 import styles from './Search.module.scss';
 
 const Search: React.FC = React.memo(() => {
-  const [value, setValue] = useState<string | undefined>(
+  const [value, setValue] = React.useState<string | undefined>(
     rootStore.query.getParam('search')
   );
   const navigate = useNavigate();
 
-  const handleSearch = async (event: FormEvent) => {
+  const handleSearch = React.useCallback(async (event: React.FormEvent) => {
     event.preventDefault();
     if (value === '') rootStore.query.setSearch(undefined);
     else rootStore.query.setSearch(value);
@@ -23,9 +22,9 @@ const Search: React.FC = React.memo(() => {
     rootStore.query.setCount(BASECOUNT);
 
     rootStore.recipes.clearRecipes();
-    navigate(rootStore.query.getURLParams());
+    navigate(rootStore.query.URLParams);
     await rootStore.recipes.fetchRecipes();
-  };
+  }, []);
 
   return (
     <form className={styles.main__search} onSubmit={handleSearch}>

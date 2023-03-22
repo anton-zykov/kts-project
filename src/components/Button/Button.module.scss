@@ -4,9 +4,7 @@
 .button {
   cursor: pointer;
   position: relative;
-  padding-top: auto;
-  padding-left: 14px;
-  padding-right: 14px;
+  padding: auto 14px 0;
   border: var.$color-red;
   border-radius: var.$global-border-radius;
   @include mxn.font-medium;
