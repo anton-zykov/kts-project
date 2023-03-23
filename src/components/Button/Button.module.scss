@@ -2,17 +2,24 @@
 @use 'styles/mixins.module.scss' as mxn;
 
 .button {
+  cursor: pointer;
   position: relative;
-  padding: 8px 14px;
+  padding: auto 14px 0;
   border: var.$color-red;
   border-radius: var.$global-border-radius;
   @include mxn.font-medium;
   line-height: 25px;
   background: var.$color-red;
   color: var.$color-white;
+  @include mxn.shadow;
+  transition: opacity 0.3s ease-out 100ms;
 
-  &:hover {
-    opacity: 50%;
+  &:hover:enabled {
+    opacity: 60%;
+  }
+  
+  &:disabled {
+    background-color: var.$color-light-grey;
   }
 }
 

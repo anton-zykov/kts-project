@@ -2,8 +2,27 @@
 
 @mixin content-positioning-on-page {
   position: relative;
-  width: var.$content-width;
+  width: calc(100% - 40px);
+  max-width: 800px;
   margin: auto;
+  @include animationFadeIn(0.5s);
+}
+
+@mixin animationFadeIn($time) {
+  animation: fadein ($time);
+
+  @keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+}
+
+@mixin background-color-transition($time) {
+  transition: background-color ease-out ($time);
+}
+
+@mixin shadow {
+  box-shadow: 1px 0 6px rgba(0, 0, 0, 0.18);
 }
 
 @mixin font-tiny {

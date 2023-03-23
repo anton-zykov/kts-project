@@ -1,7 +1,8 @@
 {
   "name": "kts-project",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "homepage": "https://anton-zykov.github.io/kts-project/",
   "dependencies": {
     "axios": "^1.3.4",
     "classnames": "^2.3.2",
@@ -11,14 +12,17 @@
     "mobx-react-lite": "^3.4.2",
     "qs": "^6.11.1",
     "react": "^18.2.0",
+    "react-content-loader": "^6.2.1",
     "react-dom": "^18.2.0",
     "react-infinite-scroll-component": "^6.1.0",
-    "react-router-dom": "^6.8.2"
+    "react-router-dom": "^6.8.2",
+    "react-toastify": "^9.1.2"
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=development npx webpack serve --mode=development",
     "build": "cross-env NODE_ENV=production npx webpack --mode=production",
-    "lint": "eslint \"./src/**/*.{js,jsx,ts,tsx}\""
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -55,6 +59,7 @@
     "eslint-plugin-react": "^7.32.2",
     "fast-async": "7",
     "fork-ts-checker-webpack-plugin": "^8.0.0",
+    "gh-pages": "^5.0.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.7.3",
     "postcss": "^8.4.21",

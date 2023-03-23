@@ -1,0 +1,51 @@
+@use 'styles/variables.module.scss' as var;
+@use 'styles/mixins.module.scss' as mxn;
+
+.multiDropdown {
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  @include mxn.font-tiny;
+
+  
+  &__header {
+    background: linear-gradient(100deg, #FFF0F0 0%, #FFDFDF 100%);
+    padding: 10px;
+    margin-bottom: 2px;
+    min-height: 16px;
+    border: transparent;
+    border-radius: var.$global-border-radius;
+    @include mxn.shadow;
+    @include mxn.font-tiny;
+    line-height: 16px;
+    color: var.$color-black;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &_empty {
+      opacity: 0.5;
+    }
+  }
+
+  &__selected {
+    background: var.$color-pink;
+    border-radius: var.$global-border-radius;
+    z-index: 1;
+    padding: 10px;
+    height: 16px;
+    color: var.$color-black;
+    @include mxn.shadow;
+    @include mxn.background-color-transition(0.5s);
+    @include mxn.animationFadeIn(0.5s);
+  }
+  
+  &__not-selected {
+    @extend .multiDropdown__selected;
+    background: var.$color-bright-pink;
+  }
+}

@@ -1,29 +1,33 @@
-import { useState, FormEvent } from 'react';
 import React from 'react';
 
 import { Button } from 'components/Button';
 import { Input } from 'components/Input';
-import { observer } from 'mobx-react-lite';
+import { BASECOUNT } from 'config/constants';
 import { useNavigate } from 'react-router-dom';
-import { BASECOUNT } from 'utils/constants';
 import rootStore from 'store/RootStore';
 
 import styles from './Search.module.scss';
 
-const Search: React.FC = () => {
-  const [value, setValue] = useState<string | undefined>(
+const Search: React.FC = React.memo(() => {
+  const [value, setValue] = React.useState<string | undefined>(
     rootStore.query.getParam('search')
   );
   const navigate = useNavigate();
 
-  const handleSearch = (event: FormEvent): void => {
-    event.preventDefault();
-    if (value === '') {
-      navigate(`?count=${BASECOUNT}`);
-    } else {
-      navigate(`?search=${value}&count=${BASECOUNT}`);
-    }
-  };
+  const handleSearch = React.useCallback(
+    async (event: React.FormEvent) => {
+      event.preventDefault();
+      if (value === '') rootStore.query.setSearch(undefined);
+      else rootStore.query.setSearch(value);
+
+      rootStore.query.setCount(BASECOUNT);
+
+      rootStore.recipes.clearRecipes();
+      navigate(rootStore.query.URLParams);
+      await rootStore.recipes.fetchRecipes();
+    },
+    [value]
+  );
 
   return (
     <form className={styles.main__search} onSubmit={handleSearch}>
@@ -31,6 +35,6 @@ const Search: React.FC = () => {
       <Button className={styles.main__searchButton} type="submit" />
     </form>
   );
-};
+});
 
-export default observer(Search);
+export default Search;

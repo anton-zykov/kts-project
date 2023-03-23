@@ -11,10 +11,19 @@
     top: 38px;
     left: 19px;
     @include mxn.rounded-square(45px);
-    opacity: 0.2;
+    opacity: 0.3;
     @include mxn.svgBackground('~/public/back.svg');
   }
   
+  &__homeButton {
+    position: absolute;
+    top: 90px;
+    left: 19px;
+    @include mxn.rounded-square(45px);
+    opacity: 0.3;
+    @include mxn.svgBackground('~/public/home.svg');
+  }
+
   &__image {
     position: relative;
     width: 100%;

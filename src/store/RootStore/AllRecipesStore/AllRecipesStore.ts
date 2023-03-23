@@ -1,3 +1,4 @@
+import { BASECOUNT } from 'config/constants';
 import {
   makeObservable,
   observable,
@@ -5,9 +6,9 @@ import {
   action,
   runInAction,
 } from 'mobx';
-import { getRecipes } from 'services/recipes';
+import { getRecipes, getRecipesProps } from 'services/recipes';
 import { normalizeRecipe, RecipeApi, RecipeModel } from 'store/models';
-import { BASECOUNT } from 'utils/constants';
+import { notify } from 'utils/notify';
 import { Meta } from 'utils/types';
 
 import RootStore from '../RootStore';
@@ -16,7 +17,7 @@ type PrivateFields = '_recipes' | '_meta' | '_maxRecipes';
 
 export default class AllRecipesStore {
   private _recipes: RecipeModel[] = [];
-  private _meta: Meta = Meta.initial;
+  private _meta = Meta.initial;
   private _rootStore: RootStore;
   private _maxRecipes: number = 0;
 
@@ -53,15 +54,18 @@ export default class AllRecipesStore {
   async fetchRecipes(): Promise<any> {
     this._meta = Meta.loading;
     try {
-      const data = await getRecipes(
-        this._recipes.length,
-        /* Всегда загружаем BASECOUNT рецептов, кроме случая,
-        когда страница загружается с эксплицитным указанием count. */
-        this._recipes.length === 0
-          ? Number(this._rootStore.query.getParam('count'))
-          : BASECOUNT,
-        this._rootStore.query.getParam('search')
-      );
+      const requestParams: getRecipesProps = {
+        offset: this._recipes.length,
+        count:
+          this.recipes.length > 0
+            ? BASECOUNT
+            : Number(this._rootStore.query.getParam('count')),
+        query: this._rootStore.query.getParam('search') ?? '',
+        mealTypes: this._rootStore.query.ArrayOfMealTypes,
+        random: this._rootStore.query.getParam('sort') ?? '',
+        k: this._rootStore.query.getParam('k') ?? '',
+      };
+      const data = await getRecipes(requestParams);
 
       if (!data.hasOwnProperty('results'))
         throw new Error('Server did not respond with data.');
@@ -74,7 +78,7 @@ export default class AllRecipesStore {
         this._maxRecipes = data.totalResults;
       });
     } catch (e: any) {
-      alert(e.message);
+      notify(e.message);
       this._meta = Meta.error;
     }
   }
