@@ -3,11 +3,11 @@ import React from 'react';
 import { Button } from 'components/Button';
 import { BASECOUNT } from 'config/constants';
 import { useNavigate } from 'react-router-dom';
-import { MultiDropdown } from 'src/App/pages/MainPage/components/MultiDropdown';
 import rootStore from 'store/RootStore/instance';
 import { MealType, mealTypes } from 'utils/types';
 
 import styles from './CategoriesFilter.module.scss';
+import { MultiDropdown } from './MultiDropdown';
 
 const CategoriesFilter: React.FC = React.memo(() => {
   const [selectedCategories, setSelectedCategories] = React.useState<

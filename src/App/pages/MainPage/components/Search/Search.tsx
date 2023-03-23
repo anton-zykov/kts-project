@@ -14,17 +14,20 @@ const Search: React.FC = React.memo(() => {
   );
   const navigate = useNavigate();
 
-  const handleSearch = React.useCallback(async (event: React.FormEvent) => {
-    event.preventDefault();
-    if (value === '') rootStore.query.setSearch(undefined);
-    else rootStore.query.setSearch(value);
+  const handleSearch = React.useCallback(
+    async (event: React.FormEvent) => {
+      event.preventDefault();
+      if (value === '') rootStore.query.setSearch(undefined);
+      else rootStore.query.setSearch(value);
 
-    rootStore.query.setCount(BASECOUNT);
+      rootStore.query.setCount(BASECOUNT);
 
-    rootStore.recipes.clearRecipes();
-    navigate(rootStore.query.URLParams);
-    await rootStore.recipes.fetchRecipes();
-  }, []);
+      rootStore.recipes.clearRecipes();
+      navigate(rootStore.query.URLParams);
+      await rootStore.recipes.fetchRecipes();
+    },
+    [value]
+  );
 
   return (
     <form className={styles.main__search} onSubmit={handleSearch}>

@@ -14,8 +14,12 @@
   @include mxn.shadow;
   transition: opacity 0.3s ease-out 100ms;
 
-  &:hover {
+  &:hover:enabled {
     opacity: 60%;
+  }
+  
+  &:disabled {
+    background-color: var.$color-light-grey;
   }
 }
 

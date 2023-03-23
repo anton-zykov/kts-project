@@ -4,12 +4,12 @@
   &__search {
     margin: 8px;
     display: flex;
-    gap: 17px;
+    gap: 14px;
   }
   
   &__searchButton {
-    cursor: pointer;
+    min-width: 36px;
     @include mxn.rounded-square(36px);
     @include mxn.svgBackground('~/public/search.svg');
-  } 
+  }
 }

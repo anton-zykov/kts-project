@@ -42,6 +42,10 @@ const Cards: React.FC = () => {
         {(rootStore.recipes.meta === Meta.success ||
           rootStore.recipes.recipes.length > 0) &&
           recipes?.map((recipe) => <Card key={recipe.id} recipe={recipe} />)}
+        {rootStore.recipes.meta === Meta.success &&
+          rootStore.recipes.recipes.length === 0 &&
+          rootStore.query.getParam('search') && (
+          <div>Sorry, no results found! You should probably specify your search.</div>)}
       </div>
     </InfiniteScroll>
   );

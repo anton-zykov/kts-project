@@ -41,7 +41,7 @@
     color: var.$color-black;
     @include mxn.shadow;
     @include mxn.background-color-transition(0.5s);
-    @include mxn.animationFadeIn(1s);
+    @include mxn.animationFadeIn(0.5s);
   }
   
   &__not-selected {

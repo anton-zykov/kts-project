@@ -16,6 +16,7 @@ export type getRecipesProps = {
   query: string;
   mealTypes: MealType[];
   random: string;
+  k: string;
 };
 
 export const getRecipes = async ({
@@ -24,6 +25,7 @@ export const getRecipes = async ({
   query,
   mealTypes,
   random,
+  k,
 }: getRecipesProps) => {
   const mealTypesAsString = mealTypes
     .reduce((categoryKeys: string[], current) => {
@@ -36,7 +38,7 @@ export const getRecipes = async ({
     try {
       const response = await axios.get(
         // eslint-disable-next-line prettier/prettier
-        `https://api.spoonacular.com/recipes/complexSearch?sort=${random}&query=${query}&fillIngredients=true&addRecipeNutrition=true&instructionsRequired=true&number=${count}&offset=${offset}&type=${mealTypesAsString}&apiKey=${apiKeys[currentKey]}`
+        `https://api.spoonacular.com/recipes/complexSearch?sort=${random}&query=${query}&fillIngredients=true&addRecipeNutrition=true&instructionsRequired=true&number=${count}&offset=${offset}&type=${mealTypesAsString}&apiKey=${k ? k : apiKeys[currentKey]}`
       );
       return response.data;
     } catch (error: any) {
@@ -46,11 +48,13 @@ export const getRecipes = async ({
   }
 };
 
-export const getOneRecipe = async (id: number) => {
+export const getOneRecipe = async (id: number, k: string) => {
   while (currentKey <= 3) {
     try {
       const response = await axios.get(
-        `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=true&apiKey=${apiKeys[currentKey]}`
+        `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=true&apiKey=${
+          k ? k : apiKeys[currentKey]
+        }`
       );
       return response.data;
     } catch (error: any) {

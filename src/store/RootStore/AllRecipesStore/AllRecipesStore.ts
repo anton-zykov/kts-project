@@ -8,6 +8,7 @@ import {
 } from 'mobx';
 import { getRecipes, getRecipesProps } from 'services/recipes';
 import { normalizeRecipe, RecipeApi, RecipeModel } from 'store/models';
+import { notify } from 'utils/notify';
 import { Meta } from 'utils/types';
 
 import RootStore from '../RootStore';
@@ -62,6 +63,7 @@ export default class AllRecipesStore {
         query: this._rootStore.query.getParam('search') ?? '',
         mealTypes: this._rootStore.query.ArrayOfMealTypes,
         random: this._rootStore.query.getParam('sort') ?? '',
+        k: this._rootStore.query.getParam('k') ?? '',
       };
       const data = await getRecipes(requestParams);
 
@@ -76,7 +78,7 @@ export default class AllRecipesStore {
         this._maxRecipes = data.totalResults;
       });
     } catch (e: any) {
-      alert(e.message);
+      notify(e.message);
       this._meta = Meta.error;
     }
   }

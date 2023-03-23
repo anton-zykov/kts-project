@@ -25,9 +25,9 @@ export const Card: React.FC<CardProps> = React.memo(({ recipe }) => {
       />
       <div className={styles.card__title}>{recipe.title}</div>
       <div className={styles.card__subtitle}>{recipe.allIngredientsLine}</div>
-      <div className={styles.card__caloriesMoreBox}>
+      <div className={styles.card__caloriesTimeBox}>
         <div className={styles.card__calories}>{recipe.calories} kcal</div>
-        <div className={styles.card__more} />
+        <div className={styles.card__time}>~{recipe.readyInMinutes} min</div>
       </div>
     </div>
   );

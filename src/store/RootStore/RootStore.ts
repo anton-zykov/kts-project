@@ -6,7 +6,7 @@ export default class RootStore {
   readonly recipes;
 
   constructor() {
-    this.query = new QueryParamsStore(this);
+    this.query = new QueryParamsStore();
     this.recipes = new AllRecipesStore(this);
   }
 }

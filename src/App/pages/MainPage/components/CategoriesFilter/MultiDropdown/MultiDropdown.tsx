@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 
 import { MealType } from 'utils/types';
 
@@ -25,9 +25,12 @@ export const MultiDropdown: React.FC<MultiDropdownProps> = React.memo(
     const [expanded, setExpanded] = React.useState(false);
 
     // При первом нажатии на дропдаун, он помечается, чтобы распознавать клики вне него.
-    const markDropdown = (event: React.MouseEvent<HTMLDivElement>) => {
-      (event.target as DropdownHTMLElement).dropdownClick = true;
-    };
+    const markDropdown = React.useCallback(
+      (event: React.MouseEvent<HTMLDivElement>) => {
+        (event.target as DropdownHTMLElement).dropdownClick = true;
+      },
+      []
+    );
 
     // Функция для эффекта, закрывающего дропдаун при клике куда-то в сторону.
     const handleSideClick = React.useCallback((event: MouseEvent) => {

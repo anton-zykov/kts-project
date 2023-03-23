@@ -3,16 +3,12 @@ import { action, computed, makeObservable, observable } from 'mobx';
 import * as qs from 'qs';
 import { MealType, mealTypes } from 'utils/types';
 
-import RootStore from '../RootStore';
-
 type PrivateFields = '_params';
 
 export default class QueryParamsStore {
   private _params: qs.ParsedQs = {};
-  private _rootStore: RootStore;
 
-  constructor(rootStore: RootStore) {
-    this._rootStore = rootStore;
+  constructor() {
     makeObservable<QueryParamsStore, PrivateFields>(this, {
       _params: observable.ref,
       ArrayOfMealTypes: computed,
@@ -93,5 +89,8 @@ export default class QueryParamsStore {
 
     this._params.sort =
       newParams.sort === undefined ? undefined : String(newParams.sort);
+
+    this._params.k =
+      newParams.k === undefined ? undefined : String(newParams.k);
   }
 }
