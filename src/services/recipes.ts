@@ -7,6 +7,7 @@ const apiKeys = [
   '11d384b0beef43fa942e43f83285b4b7',
   'fcc66e7508964a99802a120ea4417227',
 ];
+// const k = f33e6ca259a44704a17839078dd64f80;
 
 let currentKey = 0;
 
@@ -42,8 +43,15 @@ export const getRecipes = async ({
       );
       return response.data;
     } catch (error: any) {
-      if (error.response && error.response.status === 402) currentKey += 1;
-      else throw new Error('All keys are used. Please wait until tomorrow.');
+      if (error.response && error.response.status === 402 && currentKey < 3)
+        currentKey += 1;
+      else if (
+        error.response &&
+        error.response.status === 402 &&
+        currentKey === 3
+      )
+        throw new Error('All keys are used. Please wait until tomorrow.');
+      else throw new Error(error.message);
     }
   }
 };
@@ -58,8 +66,15 @@ export const getOneRecipe = async (id: number, k: string) => {
       );
       return response.data;
     } catch (error: any) {
-      if (error.response && error.response.status === 402) currentKey += 1;
-      else throw new Error('All keys are used. Please wait until tomorrow.');
+      if (error.response && error.response.status === 402 && currentKey < 3)
+        currentKey += 1;
+      else if (
+        error.response &&
+        error.response.status === 402 &&
+        currentKey === 3
+      )
+        throw new Error('All keys are used. Please wait until tomorrow.');
+      else throw new Error(error.message);
     }
   }
 };
